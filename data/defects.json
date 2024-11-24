@@ -1,0 +1,20 @@
+[
+    {
+        "id": "CN-1_I",
+        "description": "I. Há algum objetivo do usuário não representado nos tópicos das cenas.",
+        "marked": false,
+        "location": ""
+    },
+    {
+        "id": "CN-1_II",
+        "description": "II. Existem cenas inconsistentes com os requisitos/informações do cenário.",
+        "marked": false,
+        "location": ""
+    },
+    {
+        "id": "CN-1_III",
+        "description": "III. Existem cenas que não estejam no contexto dos requisitos/informações do cenário.",
+        "marked": false,
+        "location": ""
+    }
+]
