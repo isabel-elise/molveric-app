@@ -1,18 +1,20 @@
-interface Element {
+import { ImageSourcePropType } from "react-native"
+
+export interface Element {
     id: string,
     name: string,
     note: string,
     color: string
 }
 
-interface Card {
+export interface Card {
     id: string,
     description: string,
-    figure: "",
+    figure: string,
     defects: string[]
 }
 
-interface Defect {
+export interface Defect {
     id: string,
     description: string,
     marked: boolean,

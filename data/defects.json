@@ -1,19 +1,22 @@
 [
     {
         "id": "CN-1_I",
+        "type": "Omissão",
         "description": "I. Há algum objetivo do usuário não representado nos tópicos das cenas.",
         "marked": false,
         "location": ""
     },
     {
         "id": "CN-1_II",
+        "type": "Inconsistência",
         "description": "II. Existem cenas inconsistentes com os requisitos/informações do cenário.",
         "marked": false,
         "location": ""
     },
     {
         "id": "CN-1_III",
-        "description": "III. Existem cenas que não estejam no contexto dos requisitos/informações do cenário.",
+        "type": "Extrapolação",
+        "description": "III. Existem cenas que não estão no contexto dos requisitos/informações do cenário.",
         "marked": false,
         "location": ""
     }
