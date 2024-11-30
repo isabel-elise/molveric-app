@@ -1,7 +1,6 @@
 import { Text, Pressable, StyleSheet } from "react-native";
 import CheckBox from "./CheckBox";
 import { Defect } from "@/types";
-import { useEffect, useState } from "react";
 
 interface Props {
   defect: Defect;
@@ -12,24 +11,17 @@ export default function CardDefectComponent({
   defect,
   handleDefectMarking,
 }: Props) {
-  const [defectState, setDefectState] = useState(defect);
-
-  useEffect(() => {
-    setDefectState(defect);
-  }, [defect]);
-
   return (
     <Pressable
       style={styles.container}
       onPress={() => {
         let newDefectState = handleDefectMarking({
-          ...defectState,
-          marked: !defectState.marked,
+          ...defect,
+          marked: !defect.marked,
         });
-        setDefectState(newDefectState);
       }}
     >
-      <CheckBox checked={defectState.marked} />
+      <CheckBox checked={defect.marked} />
       <Text style={styles.text}>{defect.description}</Text>
     </Pressable>
   );

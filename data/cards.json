@@ -1,9 +1,0 @@
-[
-    {
-        "id": "CN-1",
-        "description": "Indica o início da interação do usuário com o sistema.",
-        "note": "CN",
-        "figure": "@/assets/images/icon.png",
-        "defects": ["CN-1_I", "CN-1_II", "CN-1_III"]
-    }
-]

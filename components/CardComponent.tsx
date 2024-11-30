@@ -5,18 +5,46 @@ import {
   Image,
   FlatList,
   Pressable,
+  Modal,
 } from "react-native";
 
-import { Element, Card, Defect } from "@/types";
-import CheckBox from "./CheckBox";
+import { Element, Defect } from "@/types";
 import DefectTypeComponent from "./DefectTypeComponent";
 import CardDefectComponent from "./CardDefectComponent";
+import { useState } from "react";
 
 interface Props {
   element: Element;
-  card: Card;
+  card: string;
   defects: Defect[];
   handleDefectMarking: Function;
+}
+
+function getDefectTypes(defects: Defect[]): {
+  type: string;
+  defects: Defect[];
+}[] {
+  let defectsTypeList: { type: string; defects: Defect[] }[] = [];
+
+  defects.forEach((defect) => {
+    let currentEntry = defectsTypeList.find(
+      (entry) => entry.type == defect.type
+    );
+
+    if (!currentEntry) {
+      defectsTypeList.push({ type: defect.type, defects: [defect] });
+    } else {
+      defectsTypeList = defectsTypeList.map((entry) => {
+        if (entry.type == defect.type) {
+          return { type: entry.type, defects: [...entry.defects, defect] };
+        } else {
+          return entry;
+        }
+      });
+    }
+  });
+
+  return defectsTypeList;
 }
 
 export default function CardComponent({
@@ -25,26 +53,78 @@ export default function CardComponent({
   defects,
   handleDefectMarking,
 }: Props) {
-  const defectTypes = [
-    { type: "Omissão", defects: [defects[0]] },
-    { type: "Inconsistência", defects: [defects[1]] },
-    { type: "Extrapolação", defects: [defects[2]] },
-  ];
+  const localAssets = {
+    "CN-1": require("@/assets/images/CN-1_figure.png"),
+  };
+
+  const [modalVisible, setModalVisible] = useState(false);
 
   return (
     <View style={[styles.cardContainer, { borderColor: element.color }]}>
+      <Modal
+        animationType="slide"
+        transparent={true}
+        visible={modalVisible}
+        onRequestClose={() => {
+          setModalVisible(!modalVisible);
+        }}
+      >
+        <Pressable
+          style={styles.centeredView}
+          onPress={() => setModalVisible(!modalVisible)}
+        >
+          <View style={styles.modalView}>
+            <Text style={styles.cardBodyText}>{element.note}</Text>
+          </View>
+        </Pressable>
+      </Modal>
       <View style={[styles.cardHeader, { backgroundColor: element.color }]}>
         <Text style={styles.cardHeaderText}>{element.name}</Text>
       </View>
+
       <View style={styles.descriptionSection}>
         <Text style={[styles.descriptionText, styles.cardBodyText]}>
-          {card.description}
+          {element.description}
         </Text>
       </View>
+      <Pressable
+        style={{
+          position: "absolute",
+          top: "16%",
+          left: "90%",
+          width: 28,
+          height: 28,
+          borderRadius: 100,
+          backgroundColor: "lightgrey",
+          justifyContent: "center",
+          alignItems: "center",
+        }}
+        onPress={() => {
+          console.log("Modal!");
+          setModalVisible(true);
+        }}
+      >
+        <Text
+          style={{
+            color: "white",
+            fontWeight: "bold",
+            fontStyle: "italic",
+            fontSize: 20,
+          }}
+        >
+          i
+        </Text>
+      </Pressable>
       <View style={styles.figureSection}>
         <Image
-          source={require("@/assets/images/icon.png")}
-          style={{ flex: 1, width: null, height: null, resizeMode: "contain" }}
+          source={localAssets["CN-1"]}
+          style={{
+            flex: 1,
+            width: null,
+            height: null,
+            resizeMode: "contain",
+            margin: 25,
+          }}
         />
       </View>
       <View style={styles.defectsSection}>
@@ -64,14 +144,18 @@ export default function CardComponent({
           )}
         />
       </View>
-      <View style={styles.defectTypesSection}>
-        {defectTypes.map((item) => (
-          <DefectTypeComponent {...item} key={item.type} />
-        ))}
+      {
+        <View style={styles.defectTypesSection}>
+          {getDefectTypes(defects).map((item) => (
+            <DefectTypeComponent {...item} key={item.type} />
+          ))}
+        </View>
+      }
+      <View style={[styles.cardBottom, { backgroundColor: element.color }]}>
+        <Text style={{ color: "white", fontWeight: "bold", fontSize: 18 }}>
+          {card}
+        </Text>
       </View>
-      <View
-        style={[styles.cardBottom, { backgroundColor: element.color }]}
-      ></View>
     </View>
   );
 }
@@ -96,6 +180,7 @@ const styles = StyleSheet.create({
     textAlign: "center",
   },
   descriptionSection: {
+    marginTop: 12,
     justifyContent: "center",
     alignItems: "center",
   },
@@ -122,5 +207,20 @@ const styles = StyleSheet.create({
   },
   cardBottom: {
     height: 60,
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  centeredView: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  modalView: {
+    margin: 18,
+    backgroundColor: "white",
+    borderRadius: 8,
+    padding: 24,
+    alignItems: "center",
+    elevation: 5,
   },
 });

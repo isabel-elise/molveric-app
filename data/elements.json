@@ -2,7 +2,8 @@
     {
         "id": "CN",
         "name": "Cena",
-        "note": "Podem ser compostos por outros diálogos, através das seguintes estruturas:\nSEQ - Diálogos que devem ser utilizados em sequência.\nXOR - Apenas um diálogo deve ser utilizado.\nOR - Utilização de um ou mais diálogos.\nAND - Utilização de todos os diálogos, sem determinar a sequência.",
+        "description": "Indica o início da interação do usuário com o sistema.",
+        "note": "Informações do cenário podem ser representadas através de uma ou mais cenas!",
         "color": "#77B419"
     }
 ]

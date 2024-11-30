@@ -1,4 +1,5 @@
 import { Defect } from "@/types";
+import { useEffect, useState } from "react";
 import { View, Text } from "react-native";
 
 export default function DefectTypeComponent({
@@ -8,6 +9,12 @@ export default function DefectTypeComponent({
   type: string;
   defects: Defect[];
 }) {
+  const [defectsList, setDefectsList] = useState(defects);
+
+  useEffect(() => {
+    setDefectsList(defects);
+  }, [defects]);
+
   return (
     <View
       style={{
@@ -21,12 +28,16 @@ export default function DefectTypeComponent({
       <Text
         style={[
           { fontSize: 12 },
-          defects.some((defect) => defect.marked) && { fontWeight: "bold" },
+          defectsList.some((defect) => defect && defect.marked) && {
+            fontWeight: "bold",
+          },
         ]}
       >
         {type}
       </Text>
-      <Text>{defects.map((defect) => defect.id.substring(5)).join(" ")}</Text>
+      <Text>
+        {defectsList.map((defect) => defect.id.substring(5)).join(" ")}
+      </Text>
     </View>
   );
 }
