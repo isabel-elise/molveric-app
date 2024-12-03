@@ -3,7 +3,7 @@
         "id": "CN",
         "name": "Cena",
         "description": "Indica o início da interação do usuário com o sistema.",
-        "note": "Informações do cenário podem ser representadas através de uma ou mais cenas!",
+        "info": "Informações do cenário podem ser representadas através de uma ou mais cenas!",
         "color": "#77B419"
     }
 ]

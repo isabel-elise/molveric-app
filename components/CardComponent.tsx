@@ -6,12 +6,15 @@ import {
   FlatList,
   Pressable,
   Modal,
+  ActivityIndicator,
 } from "react-native";
+import { useState } from "react";
 
 import { Element, Defect } from "@/types";
+import { cardData } from "@/data/cardData";
 import DefectTypeComponent from "./DefectTypeComponent";
 import CardDefectComponent from "./CardDefectComponent";
-import { useState } from "react";
+import DefectMarkedModal from "./DefectMarkedModal";
 
 interface Props {
   element: Element;
@@ -53,31 +56,39 @@ export default function CardComponent({
   defects,
   handleDefectMarking,
 }: Props) {
-  const localAssets = {
-    "CN-1": require("@/assets/images/CN-1_figure.png"),
-  };
-
-  const [modalVisible, setModalVisible] = useState(false);
+  const [infoModalVisible, setInfoModalVisible] = useState(false);
+  const [markedDefect, setMarkedDefect] = useState({});
+  const [defectMarkedModalVisible, setDefectMarkedModalVisible] =
+    useState(false);
 
   return (
     <View style={[styles.cardContainer, { borderColor: element.color }]}>
       <Modal
         animationType="slide"
         transparent={true}
-        visible={modalVisible}
+        visible={infoModalVisible}
         onRequestClose={() => {
-          setModalVisible(!modalVisible);
+          setInfoModalVisible(!infoModalVisible);
         }}
       >
         <Pressable
           style={styles.centeredView}
-          onPress={() => setModalVisible(!modalVisible)}
+          onPress={() => setInfoModalVisible(!infoModalVisible)}
         >
           <View style={styles.modalView}>
-            <Text style={styles.cardBodyText}>{element.note}</Text>
+            <Text style={styles.cardBodyText}>{element.info}</Text>
           </View>
         </Pressable>
       </Modal>
+
+      <DefectMarkedModal
+        modalVisible={defectMarkedModalVisible}
+        setModalVisible={setDefectMarkedModalVisible}
+        markedDefect={markedDefect}
+        buttonColor={element.color}
+        handleDefectMarking={handleDefectMarking}
+      />
+
       <View style={[styles.cardHeader, { backgroundColor: element.color }]}>
         <Text style={styles.cardHeaderText}>{element.name}</Text>
       </View>
@@ -94,14 +105,13 @@ export default function CardComponent({
           left: "90%",
           width: 28,
           height: 28,
-          borderRadius: 100,
+          borderRadius: "50%",
           backgroundColor: "lightgrey",
           justifyContent: "center",
           alignItems: "center",
         }}
         onPress={() => {
-          console.log("Modal!");
-          setModalVisible(true);
+          setInfoModalVisible(true);
         }}
       >
         <Text
@@ -117,7 +127,7 @@ export default function CardComponent({
       </Pressable>
       <View style={styles.figureSection}>
         <Image
-          source={localAssets["CN-1"]}
+          source={cardData["CN-1"].figure}
           style={{
             flex: 1,
             width: null,
@@ -127,30 +137,52 @@ export default function CardComponent({
           }}
         />
       </View>
-      <View style={styles.defectsSection}>
-        <Text
-          style={{ color: element.color, fontWeight: "bold", fontSize: 16 }}
-        >
-          Defeitos
-        </Text>
-        <FlatList
-          data={defects}
-          renderItem={({ item }: { item: Defect }) => (
-            <CardDefectComponent
-              key={item.id}
-              defect={item}
-              handleDefectMarking={handleDefectMarking}
-            />
-          )}
-        />
-      </View>
-      {
-        <View style={styles.defectTypesSection}>
-          {getDefectTypes(defects).map((item) => (
-            <DefectTypeComponent {...item} key={item.type} />
-          ))}
+      {defects && defects.length ? (
+        <View style={styles.defectsSection}>
+          <Text
+            style={{ color: element.color, fontWeight: "bold", fontSize: 16 }}
+          >
+            Defeitos
+          </Text>
+          <FlatList
+            data={defects}
+            renderItem={({ item }: { item: Defect }) => (
+              <CardDefectComponent
+                key={item.id}
+                defect={item}
+                handleDefectMarking={(defect: Defect) => {
+                  handleDefectMarking({ ...defect, location: "" });
+                  defect.marked &&
+                    (setDefectMarkedModalVisible(true),
+                    setMarkedDefect(defect));
+                }}
+              />
+            )}
+          />
         </View>
-      }
+      ) : (
+        <ActivityIndicator color={element.color} />
+      )}
+      <View style={styles.defectTypesSection}>
+        {getDefectTypes(defects).map((item) => (
+          <DefectTypeComponent {...item} key={item.type} />
+        ))}
+        <View
+          style={{
+            width: 36,
+            height: 36,
+            backgroundColor: element.color,
+            borderRadius: "50%",
+            justifyContent: "center",
+            alignItems: "center",
+          }}
+        >
+          <Text style={{ color: "white", fontWeight: "bold" }}>
+            {cardData["CN-1"].points}
+          </Text>
+        </View>
+      </View>
+
       <View style={[styles.cardBottom, { backgroundColor: element.color }]}>
         <Text style={{ color: "white", fontWeight: "bold", fontSize: 18 }}>
           {card}
@@ -204,6 +236,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignContent: "center",
     alignItems: "center",
+    flexWrap: "wrap",
   },
   cardBottom: {
     height: 60,

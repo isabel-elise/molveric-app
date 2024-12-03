@@ -13,23 +13,21 @@ const elements: Element[] = require("@/data/elements.json");
 
 initializeStorage(mmkvStorage);
 
-storageService.getItem("defects").then((value) => {
-  if (value == null) {
-    console.log("Setting the initial value!");
-  }
-});
-
 export default function Index() {
   const [defectsList, setDefectsList] = useState<Defect[]>([]);
 
   useEffect(() => {
     storageService.getItem<Defect[]>("defects").then((storedDefectsList) => {
+      /*
       if (storedDefectsList) {
         setDefectsList(storedDefectsList);
       } else {
         storageService.setItem("defects", defects);
         setDefectsList(defects);
       }
+        */
+      storageService.setItem("defects", defects);
+      setDefectsList(defects);
     });
   }, []);
 
@@ -45,13 +43,38 @@ export default function Index() {
     setDefectsList(newDefectsList);
   }
 
-  function handleDefectMarking(defect: Defect): Defect | undefined {
-    console.log("Chegou: " + JSON.stringify(defect));
+  function handleDefectMarking(defect: Defect): Defect {
     updateDefectsList(defect);
-    return defectsList.find((listDefect) => listDefect.id === defect.id);
+    const updatedDefect = defectsList.find(
+      (listDefect) => listDefect.id === defect.id
+    );
+    if (updatedDefect) return updatedDefect;
+    return {
+      id: "null",
+      description: "",
+      type: "",
+      marked: false,
+      location: "",
+    };
   }
 
-  const cardId = "CN-1";
+  function getCardElement(elements: Element[], cardId: string): Element {
+    return (
+      elements.find((element) => element.id == cardId.split("-")[0]) || {
+        id: "",
+        name: "",
+        description: "",
+        info: "",
+        color: "",
+      }
+    );
+  }
+
+  function getCardDefects(defects: Defect[], cardId: string): Defect[] {
+    return defects.filter((defect) => defect.id.split("_")[0] == cardId);
+  }
+
+  const cardId = "CN-2";
 
   return (
     <SafeAreaView
@@ -59,23 +82,12 @@ export default function Index() {
         flex: 1,
       }}
     >
-      {defectsList && (
-        <CardComponent
-          card={cardId}
-          element={
-            elements.find((element) => element.id == cardId.split("-")[0]) || {
-              id: "",
-              name: "",
-              note: "",
-              color: "",
-            }
-          }
-          defects={defectsList.filter(
-            (defect) => defect.id.split("_")[0] == cardId
-          )}
-          handleDefectMarking={handleDefectMarking}
-        />
-      )}
+      <CardComponent
+        card={cardId}
+        element={getCardElement(elements, cardId)}
+        defects={getCardDefects(defectsList, cardId)}
+        handleDefectMarking={handleDefectMarking}
+      />
     </SafeAreaView>
   );
 }

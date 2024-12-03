@@ -2,7 +2,7 @@ export interface Element {
     id: string,
     name: string,
     description: string,
-    note: string,
+    info: string,
     color: string
 }
 

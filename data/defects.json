@@ -19,5 +19,26 @@
         "description": "III. Existem cenas que não estão no contexto dos requisitos/informações do cenário.",
         "marked": false,
         "location": ""
+    },
+    {
+        "id": "CN-2_I",
+        "type": "Fato Icorreto",
+        "description": "I. Há alguma cena que não pode ser lida como \"Neste momento, você (usuário) pode (ou deve) <título da cena>\".",
+        "marked": false,
+        "location":""
+    },
+    {
+        "id": "CN-2_II",
+        "type": "Ambiguidade",
+        "description": "II. Existem diferentes interpretações na leitura de alguma cena.",
+        "marked": false,
+        "location": ""
+    },
+    {
+        "id":"CN-2_III",
+        "type":"Ambiguidade",
+        "description": "III. Existem cenas semelhantes.",
+        "marked": false,
+        "location": ""
     }
 ]
