@@ -22,7 +22,7 @@
     },
     {
         "id": "CN-2_I",
-        "type": "Fato Icorreto",
+        "type": "Fato Incorreto",
         "description": "I. Há alguma cena que não pode ser lida como \"Neste momento, você (usuário) pode (ou deve) <título da cena>\".",
         "marked": false,
         "location":""

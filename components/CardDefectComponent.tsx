@@ -11,7 +11,6 @@ export default function CardDefectComponent({
   defect,
   handleDefectMarking,
 }: Props) {
-  console.log("Renderizado: " + defect.location);
   return (
     <Pressable
       style={styles.container}
