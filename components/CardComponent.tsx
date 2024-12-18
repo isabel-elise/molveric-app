@@ -210,9 +210,11 @@ const styles = StyleSheet.create({
     fontSize: 24,
     color: "white",
     textAlign: "center",
+    padding: 12,
   },
   descriptionSection: {
     marginTop: 12,
+    paddingHorizontal: 12,
     justifyContent: "center",
     alignItems: "center",
   },

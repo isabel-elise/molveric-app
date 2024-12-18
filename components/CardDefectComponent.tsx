@@ -29,7 +29,7 @@ export default function CardDefectComponent({
 
 const styles = StyleSheet.create({
   container: {
-    width: "90%",
+    width: "100%",
     flexDirection: "row",
     paddingHorizontal: 10,
     paddingVertical: 8,
@@ -37,5 +37,6 @@ const styles = StyleSheet.create({
   },
   text: {
     fontSize: 16,
+    textAlign: "justify",
   },
 });
