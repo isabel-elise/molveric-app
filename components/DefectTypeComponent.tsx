@@ -61,7 +61,7 @@ export default function DefectTypeComponent({
               {
                 left: "5%",
                 top: "60%",
-                backgroundColor: "plum",
+                backgroundColor: "#BFBFBF",
               },
             ]}
           >
@@ -80,7 +80,7 @@ export default function DefectTypeComponent({
                 {
                   left: "0%",
                   top: "50%",
-                  backgroundColor: "lightblue",
+                  backgroundColor: "#BFBFBF",
                 },
               ]}
             >
@@ -93,9 +93,9 @@ export default function DefectTypeComponent({
                 styles.centerContent,
                 styles.smallCircle,
                 {
-                  left: "20%",
+                  left: "17%",
                   top: "70%",
-                  backgroundColor: "lightblue",
+                  backgroundColor: "#AEAEAE",
                 },
               ]}
             >
