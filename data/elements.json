@@ -5,5 +5,19 @@
         "description": "Indica o início da interação do usuário com o sistema.",
         "info": "Informações do cenário podem ser representadas através de uma ou mais cenas!",
         "color": "#77B419"
+    },
+    {
+        "id": "D",
+        "name": "Diálogos",
+        "description": "Representam as ações do usuário em relação ao tópico da cena.",
+        "info": "Podem ser compostos por outros diálogos, através das seguintes estruturas:\nSEQ - Diálogos que devem ser utilizados em sequência.\nXOR - Apenas um diálogo deve ser utilizado.\nOR - Utilização de um ou mais diálogos.\nAND - Utilização de todos os diálogos, sem determinar a sequência.",
+        "color": "#642389"
+    },
+    {
+        "id": "S",
+        "name": "Signos",
+        "description": "Representam a informação envolvida durante os diálogos. ",
+        "info": "Um signo possui somente os enunciadores “d:” (representa a informação do preposto do designer) e “d+u:” (o preposto do designer permite a interação do usuário).",
+        "color": "#364150"
     }
 ]

@@ -6,6 +6,8 @@ export default function Index() {
     <SafeAreaView
       style={{
         flex: 1,
+        justifyContent: "center",
+        alignItems: "center",
       }}
     >
       <Link href="/loose_inspection/">

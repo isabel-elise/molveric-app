@@ -1,17 +1,37 @@
-import { Link } from "expo-router";
-import { Button, View } from "react-native";
+import MiniCardComponent from "@/components/MiniCardComponent";
+import { FlatList, ScrollView, StyleSheet, View } from "react-native";
+
+const cards = ["CN-1", "CN-2", "D-1", "D-2", "D-3", "S-1"];
 
 export default function Index() {
   return (
-    <View>
-      <Link
-        href={{
-          pathname: "/loose_inspection/[card]",
-          params: { card: "CN-1" },
-        }}
-      >
-        <Button title="CN-1" />
-      </Link>
+    <View style={styles.container}>
+      <View style={styles.cardListContainer}>
+        <FlatList
+          data={cards}
+          renderItem={(card) => <MiniCardComponent card={card.item} />}
+          keyExtractor={(card) => card}
+          numColumns={2}
+          contentContainerStyle={styles.cardList}
+          columnWrapperStyle={{ justifyContent: "space-around" }}
+        />
+      </View>
     </View>
   );
 }
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+    alignContent: "center",
+  },
+  cardListContainer: {
+    height: "80%",
+    width: "90%",
+  },
+  cardList: {
+    gap: 16,
+  },
+});

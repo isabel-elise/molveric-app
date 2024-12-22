@@ -23,7 +23,6 @@ export default function CardInspection() {
       />
       <CardComponent
         card={card}
-        element={getCardElement(elements, card)}
         defects={getCardDefects(defectsContext.list, card)}
         handleDefectMarking={defectsContext.update}
       />

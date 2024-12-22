@@ -1,9 +1,23 @@
 import { ImageSourcePropType } from "react-native";
 
-export const cardData = {
-  "CN-1": { figure: require("@/assets/images/CN-1_figure.png"), points: 20 },
-  "CN-2": { figure: require("@/assets/images/CN-2_figure.png"), points: 20 },
-};
+export function getCardData(card: string) {
+  if (card === "CN-1")
+    return { figure: require("@/assets/images/CN-1_figure.png"), points: 20 };
+  if (card === "CN-2")
+    return { figure: require("@/assets/images/CN-2_figure.png"), points: 20 };
+  if (card === "D-1")
+    return { figure: require("@/assets/images/D-1_figure.png"), points: 20 };
+  if (card === "D-2")
+    return { figure: require("@/assets/images/D-2_figure.png"), points: 10 };
+  if (card === "D-3")
+    return { figure: require("@/assets/images/D-3_figure.png"), points: 20 };
+  if (card === "S-1")
+    return { figure: require("@/assets/images/S-1_figure.png"), points: 20 };
+  if (card === "S-2")
+    return { figure: require("@/assets/images/S-2_figure.png"), points: 10 };
+
+  throw "Card data not found!";
+}
 
 export function getDefectTypeIcon(type: string): ImageSourcePropType {
   if (type === "Omissão") {

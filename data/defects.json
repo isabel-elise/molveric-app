@@ -40,5 +40,82 @@
         "description": "III. Existem cenas semelhantes.",
         "marked": false,
         "location": ""
+    },
+    {
+        "id":"D-1_I",
+        "type":"Omissão",
+        "description": "I. Há diálogos necessários, de acordo os requisitos/informações do cenário, que não foram especificados nas cenas.",
+        "marked": false,
+        "location": ""
+    },
+    {
+        "id":"D-1_II",
+        "type":"Extrapolação",
+        "description": "II. Existem diálogos desnecessários de acordo os requisitos do cenário.",
+        "marked": false,
+        "location": ""
+    },
+    {
+        "id":"D-1_III",
+        "type":"Ambiguidade",
+        "description": "III. Existem diálogos que fornecem múltiplas interpretações.",
+        "marked": false,
+        "location": ""
+    },
+    {
+        "id":"D-2",
+        "type":"Fato Incorreto",
+        "description": "Existem relações incorretas nos diálogos.",
+        "marked": false,
+        "location": ""
+    },
+    {
+        "id":"D-3_I",
+        "type":"Omissão",
+        "description": "I. Há estruturas necessárias não representadas nos diálogos",
+        "marked": false,
+        "location": ""
+    },
+    {
+        "id":"D-3_II",
+        "type":"Inconsistência",
+        "description": "II. Há estruturas aplicadas de forma incorreta em relação aos seus objetivos.",
+        "marked": false,
+        "location": ""
+    },
+    {
+        "id":"D-3_III",
+        "type":"Extrapolação",
+        "description": "III. Existem estruturas aplicadas de forma desnecessária para as ações do usuário em relação aos requisitos do cenário.",
+        "marked": false,
+        "location": ""
+    },
+    {
+        "id":"S-1_I",
+        "type":"Omissão",
+        "description": "I. Signos necessários não foram especificados.",
+        "marked": false,
+        "location": ""
+    },
+    {
+        "id":"S-1_II",
+        "type":"Extrapolação",
+        "description": "II. Há signos fora de contexto do cenário.",
+        "marked": false,
+        "location": ""
+    },
+    {
+        "id":"S-1_III",
+        "type":"Inconsistência",
+        "description": "III. Há signos inconsistentes no cenário.",
+        "marked": false,
+        "location": ""
+    },
+    {
+        "id":"S-1_IV",
+        "type":"Ambiguidade",
+        "description": "IV. Há signos de múltiplas interpretações.",
+        "marked": false,
+        "location": ""
     }
 ]

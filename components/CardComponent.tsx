@@ -11,13 +11,15 @@ import {
 import { useState } from "react";
 
 import { Element, Defect } from "@/types";
-import { cardData } from "@/data/cardData";
+import { getCardData } from "@/data/cardData";
 import DefectTypeComponent from "./DefectTypeComponent";
 import CardDefectComponent from "./CardDefectComponent";
 import DefectMarkedModal from "./DefectMarkedModal";
 
+import elements from "@/data/elements.json";
+import { getCardElement } from "@/methods";
+
 interface Props {
-  element: Element;
   card: string;
   defects: Defect[];
   handleDefectMarking: Function;
@@ -51,7 +53,6 @@ function getDefectTypes(defects: Defect[]): {
 }
 
 export default function CardComponent({
-  element,
   card,
   defects,
   handleDefectMarking,
@@ -60,6 +61,8 @@ export default function CardComponent({
   const [markedDefect, setMarkedDefect] = useState({});
   const [defectMarkedModalVisible, setDefectMarkedModalVisible] =
     useState(false);
+
+  const element = getCardElement(elements, card);
 
   return (
     <View style={[styles.cardContainer, { borderColor: element.color }]}>
@@ -98,36 +101,10 @@ export default function CardComponent({
           {element.description}
         </Text>
       </View>
-      <Pressable
-        style={{
-          position: "absolute",
-          top: "16%",
-          left: "90%",
-          width: 28,
-          height: 28,
-          borderRadius: "50%",
-          backgroundColor: "lightgrey",
-          justifyContent: "center",
-          alignItems: "center",
-        }}
-        onPress={() => {
-          setInfoModalVisible(true);
-        }}
-      >
-        <Text
-          style={{
-            color: "white",
-            fontWeight: "bold",
-            fontStyle: "italic",
-            fontSize: 20,
-          }}
-        >
-          i
-        </Text>
-      </Pressable>
+
       <View style={styles.figureSection}>
         <Image
-          source={cardData["CN-1"].figure}
+          source={getCardData(card).figure}
           style={{
             flex: 1,
             width: null,
@@ -137,6 +114,14 @@ export default function CardComponent({
           }}
         />
       </View>
+      <Pressable
+        style={styles.infoIcon}
+        onPress={() => {
+          setInfoModalVisible(true);
+        }}
+      >
+        <Text style={styles.infoIconText}>i</Text>
+      </Pressable>
       {defects && defects.length ? (
         <View style={styles.defectsSection}>
           <Text
@@ -178,7 +163,7 @@ export default function CardComponent({
           }}
         >
           <Text style={{ color: "white", fontWeight: "bold" }}>
-            {cardData["CN-1"].points}
+            {getCardData("CN-1").points}
           </Text>
         </View>
       </View>
@@ -223,6 +208,23 @@ const styles = StyleSheet.create({
   },
   descriptionText: {
     textAlign: "justify",
+  },
+  infoIcon: {
+    position: "absolute",
+    top: "16%",
+    left: "90%",
+    width: 28,
+    height: 28,
+    borderRadius: "50%",
+    backgroundColor: "lightgrey",
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  infoIconText: {
+    color: "white",
+    fontWeight: "bold",
+    fontStyle: "italic",
+    fontSize: 20,
   },
   figureSection: {
     height: 200,

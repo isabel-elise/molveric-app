@@ -1,5 +1,6 @@
 import { getDefectTypeIcon } from "@/data/cardData";
 import { Defect } from "@/types";
+import React from "react";
 import { useEffect, useState } from "react";
 import { View, Text, Image, StyleSheet } from "react-native";
 
@@ -53,7 +54,7 @@ export default function DefectTypeComponent({
           />
         </View>
 
-        {defectsList.length == 1 && (
+        {defectsList.length == 1 && defectsList[0].id.split("_").length > 1 && (
           <View
             style={[
               styles.centerContent,
