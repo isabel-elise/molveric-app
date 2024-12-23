@@ -8,10 +8,14 @@ export default function Index() {
         flex: 1,
         justifyContent: "center",
         alignItems: "center",
+        gap: 16,
       }}
     >
       <Link href="/loose_inspection/">
         <Button title="Inspeção Livre" />
+      </Link>
+      <Link href="/loose_inspection/">
+        <Button title="Inspeção Guiada" disabled />
       </Link>
     </SafeAreaView>
   );

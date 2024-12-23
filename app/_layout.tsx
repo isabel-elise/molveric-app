@@ -11,6 +11,7 @@ const defects: Defect[] = require("@/data/defects.json");
 interface DefectsContextProps {
   list: Defect[];
   update: (defect: Defect) => void;
+  updateBatch: (defects: Defect[]) => void;
 }
 
 initializeStorage(myLocalStorage);
@@ -18,6 +19,7 @@ initializeStorage(myLocalStorage);
 export const DefectsContext = createContext<DefectsContextProps>({
   list: [],
   update: (defect: Defect) => {},
+  updateBatch: (defects: Defect[]) => {},
 });
 
 export default function RootLayout() {
@@ -42,9 +44,27 @@ export default function RootLayout() {
     setDefectsList(newDefectsList);
   }
 
+  function updateDefectsListBatch(defects: Defect[]) {
+    let newDefectsList = defectsList.map((listDefect) => {
+      let newDefect = defects.find((defect) => defect.id === listDefect.id);
+
+      if (newDefect) {
+        return newDefect;
+      } else {
+        return listDefect;
+      }
+    });
+    storageService.setItem("defects", newDefectsList);
+    setDefectsList(newDefectsList);
+  }
+
   return (
     <DefectsContext.Provider
-      value={{ list: defectsList, update: updateDefectsList }}
+      value={{
+        list: defectsList,
+        update: updateDefectsList,
+        updateBatch: updateDefectsListBatch,
+      }}
     >
       <Stack
         screenOptions={{

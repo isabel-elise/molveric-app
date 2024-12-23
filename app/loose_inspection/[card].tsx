@@ -1,14 +1,19 @@
 import CardComponent from "@/components/CardComponent";
-import { Stack, useLocalSearchParams } from "expo-router";
+import { router, Stack, useLocalSearchParams } from "expo-router";
 import { useContext } from "react";
-import { View, Text, StyleSheet } from "react-native";
+import { View, Text, StyleSheet, Button } from "react-native";
 import { DefectsContext } from "../_layout";
 import { getCardDefects, getCardElement } from "@/methods";
 
 import elements from "@/data/elements.json";
+import { ProgressBar } from "@/components/ProgressBar";
+import { LooseInspectionDefectsContext } from "./_layout";
 
 export default function CardInspection() {
   const { card }: { card: string } = useLocalSearchParams();
+  const looseInspectionDefectsContext = useContext(
+    LooseInspectionDefectsContext
+  );
   const defectsContext = useContext(DefectsContext);
 
   return (
@@ -23,8 +28,22 @@ export default function CardInspection() {
       />
       <CardComponent
         card={card}
-        defects={getCardDefects(defectsContext.list, card)}
-        handleDefectMarking={defectsContext.update}
+        defects={getCardDefects(looseInspectionDefectsContext.list, card)}
+        handleDefectMarking={looseInspectionDefectsContext.update}
+      />
+      <Button
+        title="Marcar carta como inspecionada"
+        color="#858585"
+        onPress={() => {
+          defectsContext.updateBatch(
+            getCardDefects(looseInspectionDefectsContext.list, card)
+          );
+          looseInspectionDefectsContext.updateInspected();
+          router.navigate("/loose_inspection");
+        }}
+      />
+      <ProgressBar
+        progress={looseInspectionDefectsContext.inspected * (100 / 19)}
       />
     </View>
   );
@@ -33,7 +52,13 @@ export default function CardInspection() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: "center",
+    justifyContent: "space-around",
     alignItems: "center",
+    margin: 18,
+    gap: 20,
+  },
+  button: {
+    width: "100%",
+    backgroundColor: "#E8E8E8",
   },
 });

@@ -153,13 +153,25 @@ export default function CardComponent({
         <ActivityIndicator color={element.color} />
       )}
       <View style={styles.defectTypesSection}>
-        {getDefectTypes(defects).map((item) => (
-          <DefectTypeComponent {...item} key={item.type} />
-        ))}
+        <FlatList
+          data={getDefectTypes(defects)}
+          renderItem={(defectType) => (
+            <DefectTypeComponent
+              type={defectType.item.type}
+              defects={defectType.item.defects}
+            />
+          )}
+          horizontal
+          contentContainerStyle={{
+            flex: 1,
+            justifyContent: "center",
+          }}
+          style={{ maxWidth: 300, flexGrow: 0 }}
+        />
         <View
           style={{
-            width: 36,
-            height: 36,
+            width: 42,
+            height: 42,
             backgroundColor: element.color,
             borderRadius: "50%",
             justifyContent: "center",
@@ -167,7 +179,7 @@ export default function CardComponent({
           }}
         >
           <Text style={{ color: "white", fontWeight: "bold" }}>
-            {getCardData("CN-1").points}
+            {getCardData(card).points}
           </Text>
         </View>
       </View>
@@ -187,7 +199,8 @@ const styles = StyleSheet.create({
     backgroundColor: "white",
     borderWidth: 5,
     borderRadius: 8,
-    margin: 30,
+    marginHorizontal: 12,
+    marginTop: 24,
   },
   cardHeader: {
     height: 60,
@@ -215,7 +228,7 @@ const styles = StyleSheet.create({
   },
   infoIcon: {
     position: "absolute",
-    top: "16%",
+    top: "20%",
     left: "90%",
     width: 28,
     height: 28,
@@ -239,12 +252,11 @@ const styles = StyleSheet.create({
   },
   defectTypesSection: {
     flex: 1,
-    gap: 20,
     flexDirection: "row",
     justifyContent: "center",
     alignContent: "center",
     alignItems: "center",
-    flexWrap: "wrap",
+    gap: 16,
   },
   cardBottom: {
     height: 60,

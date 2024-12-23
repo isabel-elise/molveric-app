@@ -1,5 +1,8 @@
 import MiniCardComponent from "@/components/MiniCardComponent";
+import { ProgressBar } from "@/components/ProgressBar";
+import { useContext } from "react";
 import { FlatList, ScrollView, StyleSheet, View } from "react-native";
+import { LooseInspectionDefectsContext } from "./_layout";
 
 const cards = [
   "CN-1",
@@ -24,6 +27,9 @@ const cards = [
 ];
 
 export default function Index() {
+  const looseInspectionDefectsContext = useContext(
+    LooseInspectionDefectsContext
+  );
   return (
     <View style={styles.container}>
       <View style={styles.cardListContainer}>
@@ -36,6 +42,9 @@ export default function Index() {
           columnWrapperStyle={{ justifyContent: "space-around" }}
         />
       </View>
+      <ProgressBar
+        progress={looseInspectionDefectsContext.inspected * (100 / 19)}
+      />
     </View>
   );
 }
@@ -46,10 +55,12 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     alignContent: "center",
+    margin: 18,
+    gap: 52,
   },
   cardListContainer: {
     height: "80%",
-    width: "90%",
+    width: "100%",
   },
   cardList: {
     gap: 16,
