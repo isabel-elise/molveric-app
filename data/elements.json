@@ -16,8 +16,43 @@
     {
         "id": "S",
         "name": "Signos",
-        "description": "Representam a informação envolvida durante os diálogos. ",
+        "description": "Representam a informação envolvida durante os diálogos.",
         "info": "Um signo possui somente os enunciadores “d:” (representa a informação do preposto do designer) e “d+u:” (o preposto do designer permite a interação do usuário).",
         "color": "#364150"
+    },
+    {
+        "id": "PA",
+        "name": "Ponto de Abertura",
+        "description": "Indica o início da interação do usuário com o sistema.",
+        "info": "",
+        "color": "#DE7035"
+    },
+    {
+        "id": "PE",
+        "name": "Ponto de Encerramento",
+        "description": "Indica o fim da interação do usuário com o sistema.",
+        "info": "",
+        "color": "#EF2C37"
+    },
+    {
+        "id": "AU",
+        "name": "Acesso Ubíquo",
+        "description": "Representa a oportunidade do usuário mudar o tópico da conversa para atingir um objetivo diferente do atual.",
+        "info": "",
+        "color": "#EF2272"
+    },
+    {
+        "id": "PS",
+        "name": "Processo do Sistema",
+        "description": "Representa o processamento interno de uma fala do usuário através de uma caixa preta.",
+        "info": "Isto ocorre somente quando é necessário o sistema interpretar a fala do usuário para fornecer direcionamento adequado.",
+        "color": "#E7BA23"
+    },
+    {
+        "id": "FTR",
+        "name": "Fala de Transição e Recuperação da Ruptura",
+        "description": "Representam a mudança de objetivo do usuário a partir da cena corrente (seta normal) e um tipo de fala para uma situação de recuperação de ruptura da conversa (seta tracejada).",
+        "info": "As falas de transição e recuperação da ruptura da conversa possuem somente os enunciadores de “u:” (representa a fala do usuário) e “d:” (representa a fala do designer).",
+        "color": "#34B3BE"
     }
 ]

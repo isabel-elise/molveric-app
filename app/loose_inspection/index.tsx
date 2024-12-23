@@ -1,7 +1,27 @@
 import MiniCardComponent from "@/components/MiniCardComponent";
 import { FlatList, ScrollView, StyleSheet, View } from "react-native";
 
-const cards = ["CN-1", "CN-2", "D-1", "D-2", "D-3", "S-1"];
+const cards = [
+  "CN-1",
+  "CN-2",
+  "D-1",
+  "D-2",
+  "D-3",
+  "S-1",
+  "S-2",
+  "PA-1",
+  "PE-1",
+  "AU-1",
+  "PS-1",
+  "PS-2",
+  "PS-3",
+  "PS-4",
+  "FTR-1",
+  "FTR-2",
+  "FTR-3",
+  "FTR-4",
+  "FTR-5",
+];
 
 export default function Index() {
   return (

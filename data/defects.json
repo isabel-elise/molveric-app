@@ -117,5 +117,194 @@
         "description": "IV. Há signos de múltiplas interpretações.",
         "marked": false,
         "location": ""
+    },
+    {
+        "id":"S-2_I",
+        "type":"Omissão",
+        "description": "I. O enunciador (\"d:\" e \"d+u:\") não foi utilizado em algum signo.",
+        "marked": false,
+        "location": ""
+    },
+    {
+        "id":"S-2_II",
+        "type":"Fato Incorreto",
+        "description": "II. Há signos utilizados de maneira incorreta.",
+        "marked": false,
+        "location": ""
+    },
+    {
+        "id":"PA-1_I",
+        "type":"Omissão",
+        "description": "I. O ponto de abertura não foi representado no diagrama.",
+        "marked": false,
+        "location": ""
+    },
+    {
+        "id":"PA-1_II",
+        "type":"Inconsistência",
+        "description": "II. A fala de transição do usuário possui conteúdo inconsistente com os requisitos do cenário para o início da interação.",
+        "marked": false,
+        "location": ""
+    },
+    {
+        "id":"PA-1_III",
+        "type":"Inconsistência",
+        "description": "III. A fala de transição do usuário não foi direcionada para a cena que representa o objetivo inicial do usuário",
+        "marked": false,
+        "location": ""
+    },
+    {
+        "id":"PE-1_I",
+        "type":"Omissão",
+        "description": "I. O ponto de encerramento não foi representado no diagrama.",
+        "marked": false,
+        "location": ""
+    },
+    {
+        "id":"PE-1_II",
+        "type":"Inconsistência",
+        "description": "II. A fala de transição do usuário possui conteúdo inconsistente com os requisitos do cenário para o fim da interação",
+        "marked": false,
+        "location": ""
+    },
+    {
+        "id":"AU-1_I",
+        "type":"Inconsistência",
+        "description": "I. Há cenas associadas ao acesso ubíquo que não poderiam ser acessadas a qualquer momento na interação, de acordo com os requisitos do cenário.",
+        "marked": false,
+        "location": ""
+    },
+    {
+        "id":"AU-1_II",
+        "type":"Fato Incorreto",
+        "description": "II. O acesso ubíquo está sendo relacionado a outros elementos além de cenas e ponto de encerramento.",
+        "marked": false,
+        "location": ""
+    },
+    {
+        "id":"PS-1_I",
+        "type":"Fato Incorreto",
+        "description": "I. O elemento processo do sistema não foi utilizado para interpretar uma fala de transição do usuário.",
+        "marked": false,
+        "location": ""
+    },
+    {
+        "id":"PS-1_II",
+        "type":"Omissão",
+        "description": "II. O elemento processo do sistema deixou de ser usado em momentos necessários para interpretação da fala do usuário.",
+        "marked": false,
+        "location": ""
+    },
+    {
+        "id":"PS-2",
+        "type":"Omissão",
+        "description": "O processo do sistema não foi utilizado em momento necessários para interpretação da fala do usuário.",
+        "marked": false,
+        "location": ""
+    },
+    {
+        "id":"PS-3",
+        "type":"Fato Incorreto",
+        "description": "Após um processamento do sistema, os enunciadores do preposto do designer não foram utilizados para as falas de transição e recuperação da ruptura da conversa.",
+        "marked": false,
+        "location": ""
+    },
+    {
+        "id":"PS-4",
+        "type":"Fato Incorreto",
+        "description": "Como saída do processo do sistema, não foram utilizadas uma fala de transição e outra (s) de recuperação de ruptura.",
+        "marked": false,
+        "location": ""
+    },
+    {
+        "id":"FTR-1_I",
+        "type":"Fato Incorreto",
+        "description": "I. O direcionamento das falas está incorreto em relação aos requisitos/informações do cenário.",
+        "marked": false,
+        "location": ""
+    },
+    {
+        "id":"FTR-1_II",
+        "type":"Fato Incorreto",
+        "description": "II. Há utilização incorreta das setas (normal e tracejada).",
+        "marked": false,
+        "location": ""
+    },
+    {
+        "id":"FTR-2_I",
+        "type":"Omissão",
+        "description": "I. Há falas sem conteúdo.",
+        "marked": false,
+        "location": ""
+    },
+    {
+        "id":"FTR-2_II",
+        "type":"Extrapolação",
+        "description": "II. Há falas cujo conteúdo não esteja no contexto dos requisitos do cenário.",
+        "marked": false,
+        "location": ""
+    },
+    {
+        "id":"FTR-2_III",
+        "type":"Inconsistência",
+        "description": "III. Há falas inconsistentes com o cenário.",
+        "marked": false,
+        "location": ""
+    },
+    {
+        "id":"FTR-2_VI",
+        "type":"Ambiguidade",
+        "description": "IV. Há falas com múltiplas interpretações.",
+        "marked": false,
+        "location": ""
+    },
+    {
+        "id":"FTR-3_I",
+        "type":"Omissão",
+        "description": "I. Há falas que não utilizam o enunciador \"u:\" ou \"d:\".",
+        "marked": false,
+        "location": ""
+    },
+    {
+        "id":"FTR-3_II",
+        "type":"Fato Incorreto",
+        "description": "II. O enunciador foi utilizado de maneira incorreta (diferente de \"u:\" para o usuário e \"d:\" para o preposto).",
+        "marked": false,
+        "location": ""
+    },
+    {
+        "id":"FTR-4",
+        "type":"Omissão",
+        "description": "Existem omissões de falas entre as cenas.",
+        "marked": false,
+        "location": ""
+    },
+    {
+        "id":"FTR-5_I",
+        "type":"Omissão",
+        "description": "I. A expressão precond não foi utilizada para representar uma precondição necessárias nas falas.",
+        "marked": false,
+        "location": ""
+    },
+    {
+        "id":"FTR-5_II",
+        "type":"Extrapolação",
+        "description": "II. A expressão precond possui conteúdo inconsistente com os requisitos.",
+        "marked": false,
+        "location": ""
+    },
+    {
+        "id":"FTR-5_III",
+        "type":"Inconsistência",
+        "description": "III. A expressão precond possui conteúdo desnecessário em relação aos requisitos.",
+        "marked": false,
+        "location": ""
+    },
+    {
+        "id":"FTR-5_IV",
+        "type":"Ambiguidade",
+        "description": "IV. A expressão precond possui conteúdo que não está claro.",
+        "marked": false,
+        "location": ""
     }
 ]

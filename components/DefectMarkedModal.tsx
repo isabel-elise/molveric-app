@@ -43,9 +43,10 @@ export default function DefectMarkedModal({
           </Text>
           <TextInput
             style={{
-              width: 300,
+              width: "100%",
               height: 100,
               padding: 12,
+              marginVertical: 8,
               borderWidth: 4,
               borderColor: "lightgrey",
               borderRadius: 8,

@@ -18,6 +18,7 @@ import DefectMarkedModal from "./DefectMarkedModal";
 
 import elements from "@/data/elements.json";
 import { getCardElement } from "@/methods";
+import React from "react";
 
 interface Props {
   card: string;
@@ -109,19 +110,21 @@ export default function CardComponent({
             flex: 1,
             width: null,
             height: null,
-            resizeMode: "contain",
-            margin: 25,
+            margin: getCardElement(elements, card).id === "PS" ? 0 : 25,
           }}
+          resizeMode="contain"
         />
       </View>
-      <Pressable
-        style={styles.infoIcon}
-        onPress={() => {
-          setInfoModalVisible(true);
-        }}
-      >
-        <Text style={styles.infoIconText}>i</Text>
-      </Pressable>
+      {element.info.length ? (
+        <Pressable
+          style={styles.infoIcon}
+          onPress={() => {
+            setInfoModalVisible(true);
+          }}
+        >
+          <Text style={styles.infoIconText}>i</Text>
+        </Pressable>
+      ) : null}
       {defects && defects.length ? (
         <View style={styles.defectsSection}>
           <Text
@@ -143,6 +146,7 @@ export default function CardComponent({
                 }}
               />
             )}
+            style={{ maxHeight: 200 }}
           />
         </View>
       ) : (

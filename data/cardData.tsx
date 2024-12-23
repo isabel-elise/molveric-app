@@ -15,6 +15,30 @@ export function getCardData(card: string) {
     return { figure: require("@/assets/images/S-1_figure.png"), points: 20 };
   if (card === "S-2")
     return { figure: require("@/assets/images/S-2_figure.png"), points: 10 };
+  if (card === "PA-1")
+    return { figure: require("@/assets/images/PA-1_figure.png"), points: 20 };
+  if (card === "PE-1")
+    return { figure: require("@/assets/images/PE-1_figure.png"), points: 20 };
+  if (card === "AU-1")
+    return { figure: require("@/assets/images/AU-1_figure.png"), points: 20 };
+  if (card === "PS-1")
+    return { figure: require("@/assets/images/PS-1_figure.png"), points: 10 };
+  if (card === "PS-2")
+    return { figure: require("@/assets/images/PS-2_figure.png"), points: 20 };
+  if (card === "PS-3")
+    return { figure: require("@/assets/images/PS-3_figure.png"), points: 10 };
+  if (card === "PS-4")
+    return { figure: require("@/assets/images/PS-4_figure.png"), points: 10 };
+  if (card === "FTR-1")
+    return { figure: require("@/assets/images/FTR-1_figure.png"), points: 20 };
+  if (card === "FTR-2")
+    return { figure: require("@/assets/images/FTR-2_figure.png"), points: 20 };
+  if (card === "FTR-3")
+    return { figure: require("@/assets/images/FTR-3_figure.png"), points: 20 };
+  if (card === "FTR-4")
+    return { figure: require("@/assets/images/FTR-4_figure.png"), points: 20 };
+  if (card === "FTR-5")
+    return { figure: require("@/assets/images/FTR-5_figure.png"), points: 20 };
 
   throw "Card data not found!";
 }

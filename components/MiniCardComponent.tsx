@@ -1,4 +1,4 @@
-import { View, Text, StyleSheet } from "react-native";
+import { View, Text, StyleSheet, ActivityIndicator } from "react-native";
 
 import { getCardData } from "@/data/cardData";
 import DefectTypeComponent from "./DefectTypeComponent";
@@ -17,6 +17,7 @@ export default function MiniCardComponent({ card }: Props) {
   const defectsContext = useContext(DefectsContext);
   const defects = getCardDefects(defectsContext.list, card);
   const element = getCardElement(elements, card);
+  const cardElementID = card.split("-")[0];
   return (
     <Link
       href={{
@@ -26,28 +27,44 @@ export default function MiniCardComponent({ card }: Props) {
     >
       <View style={[styles.cardContainer, { borderColor: element.color }]}>
         <View style={[styles.cardHeader, { backgroundColor: element.color }]}>
-          <Text style={styles.cardHeaderText}>{element.name}</Text>
-        </View>
-
-        <View style={styles.defectTypesSection}>
-          {getDefectTypes(defects).map((item) => (
-            <DefectTypeComponent {...item} key={item.type} />
-          ))}
-          <View
+          <Text
             style={{
-              width: 36,
-              height: 36,
-              backgroundColor: element.color,
-              borderRadius: "50%",
-              justifyContent: "center",
-              alignItems: "center",
+              ...styles.cardHeaderText,
+              fontSize:
+                cardElementID === "FTR"
+                  ? 13
+                  : ["PE", "PS"].includes(cardElementID)
+                  ? 16
+                  : 18,
             }}
           >
-            <Text style={{ color: "white", fontWeight: "bold" }}>
-              {getCardData(card).points}
-            </Text>
-          </View>
+            {element.name}
+          </Text>
         </View>
+
+        {defects && defects.length ? (
+          <View style={styles.defectTypesSection}>
+            {getDefectTypes(defects).map((item) => (
+              <DefectTypeComponent {...item} key={item.type} />
+            ))}
+            <View
+              style={{
+                width: 40,
+                height: 40,
+                backgroundColor: element.color,
+                borderRadius: "50%",
+                justifyContent: "center",
+                alignItems: "center",
+              }}
+            >
+              <Text style={{ color: "white", fontWeight: "bold" }}>
+                {getCardData(card).points}
+              </Text>
+            </View>
+          </View>
+        ) : (
+          <ActivityIndicator style={{ flex: 1 }} color={element.color} />
+        )}
 
         <View style={[styles.cardBottom, { backgroundColor: element.color }]}>
           <Text style={{ color: "white", fontWeight: "bold", fontSize: 18 }}>
@@ -74,10 +91,9 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   cardHeaderText: {
-    fontSize: 20,
     color: "white",
     textAlign: "center",
-    padding: 12,
+    padding: 2,
   },
   defectTypesSection: {
     flex: 1,
