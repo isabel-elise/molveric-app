@@ -14,8 +14,8 @@ export default function Index() {
       <Link href="/loose_inspection/">
         <Button title="Inspeção Livre" />
       </Link>
-      <Link href="/loose_inspection/">
-        <Button title="Inspeção Guiada" disabled />
+      <Link href="/guided_inspection">
+        <Button title="Inspeção Guiada" />
       </Link>
     </SafeAreaView>
   );

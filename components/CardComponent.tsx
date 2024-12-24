@@ -199,7 +199,6 @@ const styles = StyleSheet.create({
     backgroundColor: "white",
     borderWidth: 5,
     borderRadius: 8,
-    marginHorizontal: 12,
     marginTop: 24,
   },
   cardHeader: {
@@ -256,7 +255,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignContent: "center",
     alignItems: "center",
-    gap: 16,
+    gap: 8,
   },
   cardBottom: {
     height: 60,
