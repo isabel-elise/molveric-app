@@ -1,8 +1,8 @@
 import CardComponent from "@/components/CardComponent";
 import { router, Stack, useLocalSearchParams } from "expo-router";
 import { useContext } from "react";
-import { View, Text, StyleSheet, Button } from "react-native";
-import { DefectsContext } from "../_layout";
+import { View, StyleSheet, Button } from "react-native";
+import { InspectionContext } from "../_layout";
 import { getCardDefects, getCardElement } from "@/methods";
 
 import elements from "@/data/elements.json";
@@ -14,7 +14,7 @@ export default function CardInspection() {
   const looseInspectionDefectsContext = useContext(
     LooseInspectionDefectsContext
   );
-  const defectsContext = useContext(DefectsContext);
+  const inspectionContext = useContext(InspectionContext);
 
   return (
     <View style={styles.container}>
@@ -35,15 +35,17 @@ export default function CardInspection() {
         title="Marcar carta como inspecionada"
         color="#858585"
         onPress={() => {
-          defectsContext.updateBatch(
+          inspectionContext.updateDefectsListBatch(
             getCardDefects(looseInspectionDefectsContext.list, card)
           );
-          looseInspectionDefectsContext.updateInspected();
+          if (inspectionContext.inspectedCards.indexOf(card) == -1) {
+            inspectionContext.updateInspectedCards(card);
+          }
           router.navigate("/loose_inspection");
         }}
       />
       <ProgressBar
-        progress={looseInspectionDefectsContext.inspected * (100 / 19)}
+        progress={inspectionContext.inspectedCards.length * (100 / 19)}
       />
     </View>
   );

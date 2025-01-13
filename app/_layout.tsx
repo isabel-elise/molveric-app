@@ -8,28 +8,47 @@ import { Stack } from "expo-router";
 import { createContext, useEffect, useState } from "react";
 const defects: Defect[] = require("@/data/defects.json");
 
-interface DefectsContextProps {
-  list: Defect[];
-  update: (defect: Defect) => void;
-  updateBatch: (defects: Defect[]) => void;
+interface InspectionContextProps {
+  defectsList: Defect[];
+  updateDefectsList: (defect: Defect) => void;
+  updateDefectsListBatch: (defects: Defect[]) => void;
+  inspectedCards: string[];
+  updateInspectedCards: (cardID: string) => void;
 }
 
 initializeStorage(myLocalStorage);
 
-export const DefectsContext = createContext<DefectsContextProps>({
-  list: [],
-  update: (defect: Defect) => {},
-  updateBatch: (defects: Defect[]) => {},
+export const InspectionContext = createContext<InspectionContextProps>({
+  defectsList: [],
+  updateDefectsList: (_: Defect) => {},
+  updateDefectsListBatch: (_: Defect[]) => {},
+  inspectedCards: [],
+  updateInspectedCards: (_: string) => {},
 });
 
 export default function RootLayout() {
   const [defectsList, setDefectsList] = useState<Defect[]>([]);
+  const [inspectedCards, setInspectedCards] = useState<string[]>([]);
 
   useEffect(() => {
     storageService.getItem<Defect[]>("defects").then((storedDefectsList) => {
-      storageService.setItem("defects", defects);
-      setDefectsList(defects);
+      if (storedDefectsList) {
+        setDefectsList(storedDefectsList);
+      } else {
+        storageService.setItem("defects", defects);
+        setDefectsList(defects);
+      }
     });
+    storageService
+      .getItem<string[]>("inspectedCards")
+      .then((storedInspectedCards) => {
+        if (storedInspectedCards) {
+          setInspectedCards(storedInspectedCards);
+        } else {
+          storageService.setItem("inspectedCards", inspectedCards);
+          setInspectedCards(inspectedCards);
+        }
+      });
   }, []);
 
   function updateDefectsList(defect: Defect) {
@@ -58,12 +77,22 @@ export default function RootLayout() {
     setDefectsList(newDefectsList);
   }
 
+  function updateInspectedCards(card: string) {
+    let newInpectedCards = [...inspectedCards, card];
+    storageService.setItem("inspectedCards", newInpectedCards);
+    setInspectedCards(newInpectedCards);
+    console.log(card);
+    console.log(newInpectedCards);
+  }
+
   return (
-    <DefectsContext.Provider
+    <InspectionContext.Provider
       value={{
-        list: defectsList,
-        update: updateDefectsList,
-        updateBatch: updateDefectsListBatch,
+        defectsList: defectsList,
+        updateDefectsList: updateDefectsList,
+        updateDefectsListBatch: updateDefectsListBatch,
+        inspectedCards: inspectedCards,
+        updateInspectedCards: updateInspectedCards,
       }}
     >
       <Stack
@@ -71,6 +100,6 @@ export default function RootLayout() {
           headerShown: false,
         }}
       />
-    </DefectsContext.Provider>
+    </InspectionContext.Provider>
   );
 }

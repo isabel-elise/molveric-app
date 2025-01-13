@@ -1,7 +1,7 @@
 import CardComponent from "@/components/CardComponent";
 import { useContext, useState } from "react";
 import { Image, Pressable, StyleSheet, View } from "react-native";
-import { DefectsContext } from "../_layout";
+import { InspectionContext } from "../_layout";
 import { getCardDefects } from "@/methods";
 import { ProgressBar } from "@/components/ProgressBar";
 
@@ -28,17 +28,17 @@ const recomendedOrder = [
 
 export default function Index() {
   const [currentIndex, setCurrentIndex] = useState(0);
-  const defectsContext = useContext(DefectsContext);
+  const defectsContext = useContext(InspectionContext);
 
   return (
     <View style={styles.container}>
       <CardComponent
         card={recomendedOrder[currentIndex]}
         defects={getCardDefects(
-          defectsContext.list,
+          defectsContext.defectsList,
           recomendedOrder[currentIndex]
         )}
-        handleDefectMarking={defectsContext.update}
+        handleDefectMarking={defectsContext.updateDefectsList}
       />
 
       <Pressable

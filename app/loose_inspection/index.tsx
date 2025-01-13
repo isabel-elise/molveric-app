@@ -3,6 +3,7 @@ import { ProgressBar } from "@/components/ProgressBar";
 import { useContext } from "react";
 import { FlatList, ScrollView, StyleSheet, View } from "react-native";
 import { LooseInspectionDefectsContext } from "./_layout";
+import { InspectionContext } from "../_layout";
 
 const cards = [
   "CN-1",
@@ -27,9 +28,7 @@ const cards = [
 ];
 
 export default function Index() {
-  const looseInspectionDefectsContext = useContext(
-    LooseInspectionDefectsContext
-  );
+  const inspectionContext = useContext(InspectionContext);
   return (
     <View style={styles.container}>
       <View style={styles.cardListContainer}>
@@ -43,7 +42,7 @@ export default function Index() {
         />
       </View>
       <ProgressBar
-        progress={looseInspectionDefectsContext.inspected * (100 / 19)}
+        progress={inspectionContext.inspectedCards.length * (100 / 19)}
       />
     </View>
   );

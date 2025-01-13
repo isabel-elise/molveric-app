@@ -6,7 +6,7 @@ import { getCardDefects, getCardElement, getDefectTypes } from "@/methods";
 
 import elements from "@/data/elements.json";
 import { useContext } from "react";
-import { DefectsContext } from "@/app/_layout";
+import { InspectionContext } from "@/app/_layout";
 import { Link } from "expo-router";
 
 interface Props {
@@ -14,8 +14,8 @@ interface Props {
 }
 
 export default function MiniCardComponent({ card }: Props) {
-  const defectsContext = useContext(DefectsContext);
-  const defects = getCardDefects(defectsContext.list, card);
+  const defectsContext = useContext(InspectionContext);
+  const defects = getCardDefects(defectsContext.defectsList, card);
   const element = getCardElement(elements, card);
   const cardElementID = card.split("-")[0];
   return (

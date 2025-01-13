@@ -1,30 +1,25 @@
 import { Defect } from "@/types";
 import { router, Stack } from "expo-router";
 import { createContext, useContext, useEffect, useState } from "react";
-import { DefectsContext } from "../_layout";
+import { InspectionContext } from "../_layout";
 
 interface DefectContextProps {
   list: Defect[];
   update: (defect: Defect) => void;
-  inspected: number;
-  updateInspected: () => void;
 }
 
 export const LooseInspectionDefectsContext = createContext<DefectContextProps>({
   list: [],
-  update: (defect: Defect) => {},
-  inspected: 0,
-  updateInspected: () => {},
+  update: (_: Defect) => {},
 });
 
 export default function LooseInspectionLayout() {
-  const [inspectedAmount, setInspectedAmount] = useState(0);
   const [tempDefectsList, setTempDefectsList] = useState<Defect[]>([]);
-  const defectsContext = useContext(DefectsContext);
+  const inspectionContext = useContext(InspectionContext);
 
   useEffect(() => {
-    setTempDefectsList(defectsContext.list);
-  }, [defectsContext]);
+    setTempDefectsList(inspectionContext.defectsList);
+  }, [inspectionContext]);
 
   function updateTempDefectsList(defect: Defect) {
     let newDefectsList = tempDefectsList.map((listDefect) => {
@@ -37,17 +32,11 @@ export default function LooseInspectionLayout() {
     setTempDefectsList(newDefectsList);
   }
 
-  function updateInspectedAmount() {
-    setInspectedAmount(inspectedAmount + 1);
-  }
-
   return (
     <LooseInspectionDefectsContext.Provider
       value={{
         list: tempDefectsList,
         update: updateTempDefectsList,
-        inspected: inspectedAmount,
-        updateInspected: updateInspectedAmount,
       }}
     >
       <Stack
