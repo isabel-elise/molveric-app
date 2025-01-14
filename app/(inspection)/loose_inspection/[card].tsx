@@ -2,7 +2,7 @@ import CardComponent from "@/components/CardComponent";
 import { router, Stack, useLocalSearchParams } from "expo-router";
 import { useContext } from "react";
 import { View, StyleSheet, Button } from "react-native";
-import { InspectionContext } from "../_layout";
+import { InspectionContext } from "../../_layout";
 import { getCardDefects, getCardElement } from "@/methods";
 
 import elements from "@/data/elements.json";

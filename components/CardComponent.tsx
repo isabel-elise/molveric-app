@@ -10,7 +10,7 @@ import {
 } from "react-native";
 import { useState } from "react";
 
-import { Element, Defect } from "@/types";
+import { Defect } from "@/types";
 import { getCardData } from "@/data/cardData";
 import DefectTypeComponent from "./DefectTypeComponent";
 import CardDefectComponent from "./CardDefectComponent";

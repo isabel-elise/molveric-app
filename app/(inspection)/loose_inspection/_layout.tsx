@@ -1,7 +1,7 @@
 import { Defect } from "@/types";
 import { router, Stack } from "expo-router";
 import { createContext, useContext, useEffect, useState } from "react";
-import { InspectionContext } from "../_layout";
+import { InspectionContext } from "../../_layout";
 
 interface DefectContextProps {
   list: Defect[];

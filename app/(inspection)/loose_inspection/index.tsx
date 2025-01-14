@@ -1,9 +1,10 @@
 import MiniCardComponent from "@/components/MiniCardComponent";
 import { ProgressBar } from "@/components/ProgressBar";
 import { useContext } from "react";
-import { FlatList, ScrollView, StyleSheet, View } from "react-native";
+import { Button, FlatList, ScrollView, StyleSheet, View } from "react-native";
 import { LooseInspectionDefectsContext } from "./_layout";
-import { InspectionContext } from "../_layout";
+import { InspectionContext } from "../../_layout";
+import { router } from "expo-router";
 
 const cards = [
   "CN-1",
@@ -41,6 +42,13 @@ export default function Index() {
           columnWrapperStyle={{ justifyContent: "space-around" }}
         />
       </View>
+      <Button
+        title="Visualizar relatório"
+        color="#858585"
+        onPress={() => {
+          router.navigate("/inspection_report");
+        }}
+      />
       <ProgressBar
         progress={inspectionContext.inspectedCards.length * (100 / 19)}
       />
