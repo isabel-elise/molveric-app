@@ -63,7 +63,8 @@ export default function InspectionReportDefectComponent({
 const styles = StyleSheet.create({
   container: {
     width: "100%",
-    paddingHorizontal: 10,
+    paddingLeft: 8,
+    paddingRight: 12,
     paddingVertical: 12,
     gap: 7,
   },
