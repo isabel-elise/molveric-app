@@ -1,8 +1,7 @@
 import MiniCardComponent from "@/components/MiniCardComponent";
 import { ProgressBar } from "@/components/ProgressBar";
 import { useContext } from "react";
-import { Button, FlatList, ScrollView, StyleSheet, View } from "react-native";
-import { LooseInspectionDefectsContext } from "./_layout";
+import { Button, FlatList, StyleSheet, View } from "react-native";
 import { InspectionContext } from "../../_layout";
 import { router } from "expo-router";
 

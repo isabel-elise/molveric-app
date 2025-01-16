@@ -1,10 +1,11 @@
 import { Defect } from "@/types";
-import { StyleSheet, View, Text, FlatList } from "react-native";
+import { StyleSheet, View, Text, FlatList, Pressable } from "react-native";
 import InspectionReportDefectComponent from "./InspectionReportDefectComponent";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import elements from "@/data/elements.json";
 import { getCardElement } from "@/methods";
 import { getCardData } from "@/data/cardData";
+import { InspectionContext } from "@/app/_layout";
 
 interface secionListProps {
   title: string;
@@ -54,44 +55,39 @@ function computeTotalScore(markedDefects: Defect[]) {
 
 function dislayReportModeDescription(reportMode: string) {
   if (reportMode === BY_CARD_ELEMENT) {
-    return "Defeitos marcados por Carta";
+    return "Carta";
   }
   if (reportMode === BY_DEFECT_TYPE) {
-    return "Defeitos marcados por Tipo";
+    return "Tipo";
   }
   throw "Tipo de relatório inválido!";
 }
 
-interface InspectionReportComponentProps {
-  defects: Defect[];
-}
-
-export default function InpectionReportComponent({
-  defects,
-}: InspectionReportComponentProps) {
-  const [markedDefects, setMarkedDefects] = useState<Defect[]>(defects);
-  const [reportMode, setReportMode] = useState<string>(BY_DEFECT_TYPE);
+export default function InpectionReportComponent() {
+  const inspectionContext = useContext(InspectionContext);
+  const markedDefects = inspectionContext.defectsList.filter(
+    (defect) => defect.marked
+  );
+  const [reportMode, setReportMode] = useState<string>(BY_CARD_ELEMENT);
   const [reportList, setReportList] = useState<secionListProps[]>([]);
 
   const totalScore = computeTotalScore(markedDefects);
 
   useEffect(() => {
-    setMarkedDefects(defects.filter((defect) => defect.marked));
-
     if (reportMode === BY_CARD_ELEMENT) {
       setReportList(assembleReportByCardElement(markedDefects));
     }
     if (reportMode == BY_DEFECT_TYPE) {
       setReportList(assembleReportByDefectType(markedDefects));
     }
-  }, [defects, reportMode]);
+  }, [inspectionContext, reportMode]);
 
   return (
     <View style={styles.container}>
       <View style={styles.cardHeader}>
         <Text style={styles.cardHeaderTitleText}>Relatório</Text>
         <Text style={styles.cardHeaderSubstitleText}>
-          {dislayReportModeDescription(reportMode)}
+          Defeitos Marcados por {dislayReportModeDescription(reportMode)}
         </Text>
       </View>
       <View style={styles.reportArea}>
@@ -117,9 +113,21 @@ export default function InpectionReportComponent({
             </View>
           )}
           ItemSeparatorComponent={() => <View style={{ height: 10 }}></View>}
-          style={{ maxHeight: 500 }}
         />
       </View>
+      <Pressable
+        style={styles.cardFooter}
+        onPress={() =>
+          reportMode === BY_CARD_ELEMENT
+            ? setReportMode(BY_DEFECT_TYPE)
+            : setReportMode(BY_CARD_ELEMENT)
+        }
+      >
+        <Text style={styles.cardFooterText}>
+          Visualizar relatório por{" "}
+          {reportMode === BY_CARD_ELEMENT ? "Tipo de Defeito" : "Carta"}
+        </Text>
+      </Pressable>
     </View>
   );
 }
@@ -127,9 +135,10 @@ export default function InpectionReportComponent({
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    borderWidth: 5,
+    borderWidth: 1,
     borderRadius: 8,
     marginTop: 24,
+    backgroundColor: "#DFDFDF",
   },
   cardHeader: {
     color: "white",
@@ -149,6 +158,7 @@ const styles = StyleSheet.create({
     textAlign: "center",
   },
   reportArea: {
+    flex: 1,
     paddingHorizontal: 10,
     paddingVertical: 10,
     backgroundColor: "#D1D1D1",
@@ -182,5 +192,18 @@ const styles = StyleSheet.create({
   reportSectionHeader: {
     fontSize: 20,
     marginVertical: 6,
+  },
+  cardFooter: {
+    justifyContent: "center",
+    alignItems: "center",
+    backgroundColor: "#717171",
+    borderRadius: 8,
+    paddingHorizontal: 21,
+    paddingVertical: 11,
+    margin: 10,
+  },
+  cardFooterText: {
+    fontSize: 16,
+    color: "#FFF",
   },
 });

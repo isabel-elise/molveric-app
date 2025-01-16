@@ -4,13 +4,9 @@ import { StyleSheet, View } from "react-native";
 import { InspectionContext } from "../_layout";
 
 export default function Index() {
-  const inspectionContext = useContext(InspectionContext);
-
   return (
     <View style={styles.container}>
-      <InspectionReportComponent
-        defects={inspectionContext.defectsList}
-      ></InspectionReportComponent>
+      <InspectionReportComponent />
     </View>
   );
 }
