@@ -22,17 +22,26 @@ const defectTypes = [
 const BY_CARD_ELEMENT = "byCardElement";
 const BY_DEFECT_TYPE = "byDefectType";
 
-const cardElementTypes = elements.map((element) => element.name);
+const cardElements = elements.map((element) => element.name);
 
-function assembleReportByCardElementType(
+function assembleReportByCardElement(
   markedDefects: Defect[]
 ): secionListProps[] {
-  return cardElementTypes.map((cardElement) => ({
+  return cardElements.map((cardElement) => ({
     title: cardElement,
     defects: markedDefects.filter(
       (defect) =>
         getCardElement(elements, defect.id.split("_")[0]).name === cardElement
     ),
+  }));
+}
+
+function assembleReportByDefectType(
+  markedDefects: Defect[]
+): secionListProps[] {
+  return defectTypes.map((defectType) => ({
+    title: defectType,
+    defects: markedDefects.filter((defect) => defect.type === defectType),
   }));
 }
 
@@ -47,11 +56,9 @@ function dislayReportModeDescription(reportMode: string) {
   if (reportMode === BY_CARD_ELEMENT) {
     return "Defeitos marcados por Carta";
   }
-
   if (reportMode === BY_DEFECT_TYPE) {
     return "Defeitos marcados por Tipo";
   }
-
   throw "Tipo de relatório inválido!";
 }
 
@@ -63,7 +70,7 @@ export default function InpectionReportComponent({
   defects,
 }: InspectionReportComponentProps) {
   const [markedDefects, setMarkedDefects] = useState<Defect[]>(defects);
-  const [reportMode, setReportMode] = useState<string>(BY_CARD_ELEMENT);
+  const [reportMode, setReportMode] = useState<string>(BY_DEFECT_TYPE);
   const [reportList, setReportList] = useState<secionListProps[]>([]);
 
   const totalScore = computeTotalScore(markedDefects);
@@ -72,7 +79,10 @@ export default function InpectionReportComponent({
     setMarkedDefects(defects.filter((defect) => defect.marked));
 
     if (reportMode === BY_CARD_ELEMENT) {
-      setReportList(assembleReportByCardElementType(markedDefects));
+      setReportList(assembleReportByCardElement(markedDefects));
+    }
+    if (reportMode == BY_DEFECT_TYPE) {
+      setReportList(assembleReportByDefectType(markedDefects));
     }
   }, [defects, reportMode]);
 
