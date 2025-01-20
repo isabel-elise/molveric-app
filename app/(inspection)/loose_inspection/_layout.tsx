@@ -41,7 +41,8 @@ export default function LooseInspectionLayout() {
     >
       <Stack
         screenOptions={{
-          headerShown: false,
+          headerShown: true,
+          title: "Inspeção Livre",
         }}
       >
         <Stack.Screen name="[card]" />

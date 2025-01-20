@@ -4,7 +4,8 @@ export default function GuidedInspectionLayout() {
   return (
     <Stack
       screenOptions={{
-        headerShown: false,
+        headerShown: true,
+        title: "Inspeção Guiada",
       }}
     >
       <Stack.Screen name="[card]" />

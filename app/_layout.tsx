@@ -6,6 +6,7 @@ import {
 import { Defect } from "@/types";
 import { Stack } from "expo-router";
 import { createContext, useEffect, useState } from "react";
+import { ImageBackground } from "react-native";
 const defects: Defect[] = require("@/data/defects.json");
 
 interface InspectionContextProps {

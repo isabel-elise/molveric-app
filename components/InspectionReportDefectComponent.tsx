@@ -32,7 +32,9 @@ export default function InspectionReportDefectComponent({
             setDefectLocationModalVisible(!defectLocationModalVisible)
           }
         >
-          <View style={styles.modalView}>{defect.location}</View>
+          <View style={styles.modalView}>
+            <Text>{defect.location}</Text>
+          </View>
         </Pressable>
       </Modal>
       <View style={styles.descriptionSection}>

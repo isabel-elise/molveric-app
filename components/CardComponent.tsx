@@ -199,7 +199,6 @@ const styles = StyleSheet.create({
     backgroundColor: "white",
     borderWidth: 5,
     borderRadius: 8,
-    marginTop: 24,
   },
   cardHeader: {
     height: 60,
