@@ -4,6 +4,7 @@ import { Image, Pressable, StyleSheet, View } from "react-native";
 import { InspectionContext } from "../../_layout";
 import { getCardDefects } from "@/methods";
 import { ProgressBar } from "@/components/ProgressBar";
+import { router } from "expo-router";
 
 const recomendedOrder = [
   "CN-1",
@@ -43,7 +44,11 @@ export default function Index() {
 
       <Pressable
         style={styles.rightArrow}
-        onPress={() => setCurrentIndex(currentIndex + 1)}
+        onPress={() =>
+          currentIndex !== recomendedOrder.length - 1
+            ? setCurrentIndex(currentIndex + 1)
+            : router.navigate("/inspection_report")
+        }
       >
         <Image source={require("@/assets/images/Arrow.png")} />
       </Pressable>

@@ -136,9 +136,9 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     borderWidth: 1,
-    borderRadius: 8,
-    marginTop: 24,
+    borderRadius: 10,
     backgroundColor: "#DFDFDF",
+    overflow: "hidden",
   },
   cardHeader: {
     color: "white",

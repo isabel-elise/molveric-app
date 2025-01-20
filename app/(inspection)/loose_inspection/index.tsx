@@ -4,6 +4,7 @@ import { useContext } from "react";
 import { Button, FlatList, StyleSheet, View } from "react-native";
 import { InspectionContext } from "../../_layout";
 import { router } from "expo-router";
+import CustomButton from "@/components/CustomButton";
 
 const cards = [
   "CN-1",
@@ -41,10 +42,11 @@ export default function Index() {
           columnWrapperStyle={{ justifyContent: "space-around" }}
         />
       </View>
-      <Button
+      <CustomButton
         title="Visualizar relatório"
-        color="#858585"
-        onPress={() => {
+        size="long"
+        shade="medium"
+        onClick={() => {
           router.navigate("/inspection_report");
         }}
       />
@@ -62,10 +64,10 @@ const styles = StyleSheet.create({
     alignItems: "center",
     alignContent: "center",
     margin: 18,
-    gap: 52,
+    gap: 12,
   },
   cardListContainer: {
-    height: "80%",
+    flex: 1,
     width: "100%",
   },
   cardList: {

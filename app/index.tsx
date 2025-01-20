@@ -1,4 +1,5 @@
-import { Link } from "expo-router";
+import CustomButton from "@/components/CustomButton";
+import { Link, router } from "expo-router";
 import { Button, SafeAreaView } from "react-native";
 
 export default function Index() {
@@ -12,10 +13,20 @@ export default function Index() {
       }}
     >
       <Link href="/loose_inspection/">
-        <Button title="Inspeção Livre" />
+        <CustomButton
+          title="Inspeção Livre"
+          size="regular"
+          shade="medium"
+          onClick={() => router.navigate("/loose_inspection")}
+        />
       </Link>
       <Link href="/guided_inspection">
-        <Button title="Inspeção Guiada" />
+        <CustomButton
+          title="Inspeção Guiada"
+          size="regular"
+          shade="dark"
+          onClick={() => router.navigate("/guided_inspection")}
+        />
       </Link>
     </SafeAreaView>
   );
