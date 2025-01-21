@@ -4,6 +4,7 @@ interface CustomButtonProps {
   title: string;
   size: string;
   shade: string;
+  type?: string;
   onClick: () => void;
 }
 
@@ -30,15 +31,28 @@ function getShadeStyle(shade: string) {
   }
 }
 
+function getTypeStyle(type: string | undefined) {
+  if (type === "rounded") {
+    return { borderRadius: 24 };
+  }
+  return {};
+}
+
 export default function CustomButton({
   title,
   size,
   shade,
+  type,
   onClick,
 }: CustomButtonProps) {
   return (
     <Pressable
-      style={[styles.container, getSizeStyle(size), getShadeStyle(shade)]}
+      style={[
+        styles.container,
+        getSizeStyle(size),
+        getShadeStyle(shade),
+        getTypeStyle(type),
+      ]}
       onPress={onClick}
     >
       <Text>{title}</Text>

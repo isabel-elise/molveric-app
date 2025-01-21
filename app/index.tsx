@@ -1,6 +1,12 @@
 import CustomButton from "@/components/CustomButton";
 import { Link, router } from "expo-router";
-import { Button, Image, ImageBackground, SafeAreaView } from "react-native";
+import {
+  Button,
+  Image,
+  ImageBackground,
+  SafeAreaView,
+  View,
+} from "react-native";
 
 export default function Index() {
   return (
@@ -20,6 +26,15 @@ export default function Index() {
           gap: 16,
         }}
       >
+        <View style={{ height: 180 }} />
+
+        <CustomButton
+          title="Nova Inspeção"
+          size="regular"
+          shade="light"
+          onClick={() => router.navigate("/loose_inspection")}
+        />
+
         <CustomButton
           title="Inspeção Livre"
           size="regular"
@@ -32,6 +47,16 @@ export default function Index() {
           size="regular"
           shade="dark"
           onClick={() => router.navigate("/guided_inspection")}
+        />
+
+        <View style={{ height: 10 }} />
+
+        <CustomButton
+          title="Tipos de Defeitos"
+          size="regular"
+          shade="light"
+          type="rounded"
+          onClick={() => router.navigate("/defect_types_info")}
         />
       </ImageBackground>
     </SafeAreaView>

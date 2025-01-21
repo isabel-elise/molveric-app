@@ -1,7 +1,5 @@
 import InspectionReportComponent from "@/components/InspectionReportComponent";
-import { useContext } from "react";
 import { StyleSheet, View } from "react-native";
-import { InspectionContext } from "../_layout";
 import CustomButton from "@/components/CustomButton";
 import { router } from "expo-router";
 

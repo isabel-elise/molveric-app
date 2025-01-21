@@ -7,9 +7,11 @@ import { View, Text, Image, StyleSheet } from "react-native";
 export default function DefectTypeComponent({
   type,
   defects,
+  info,
 }: {
   type: string;
   defects: Defect[];
+  info?: boolean;
 }) {
   const [defectsList, setDefectsList] = useState(defects);
 
@@ -45,6 +47,7 @@ export default function DefectTypeComponent({
                   backgroundColor: "grey",
                 }
               : { backgroundColor: "lightgrey" },
+            info ? { width: 70, height: 70 } : {},
           ]}
         >
           <Image
@@ -110,7 +113,7 @@ export default function DefectTypeComponent({
 
       <Text
         style={[
-          { fontSize: 11 },
+          { fontSize: info ? 12 : 11, marginTop: 5 },
           defectsList.some((defect) => defect && defect.marked) && {
             fontWeight: "bold",
           },
@@ -131,6 +134,7 @@ const styles = StyleSheet.create({
     width: 50,
     height: 50,
     borderRadius: "50%",
+    padding: 2,
   },
   smallCircle: {
     width: 20,

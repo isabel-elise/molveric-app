@@ -5,7 +5,6 @@ import { View, StyleSheet, Button } from "react-native";
 import { InspectionContext } from "../../_layout";
 import { getCardDefects, getCardElement } from "@/methods";
 
-import elements from "@/data/elements.json";
 import { ProgressBar } from "@/components/ProgressBar";
 import { LooseInspectionDefectsContext } from "./_layout";
 import CustomButton from "@/components/CustomButton";
@@ -21,10 +20,7 @@ export default function CardInspection() {
     <View style={styles.container}>
       <Stack.Screen
         options={{
-          title: card,
-          headerStyle: {
-            backgroundColor: getCardElement(elements, card).color,
-          },
+          title: "Inspeção carta " + card,
         }}
       />
       <CardComponent
@@ -59,7 +55,7 @@ const styles = StyleSheet.create({
     justifyContent: "space-around",
     alignItems: "center",
     margin: 18,
-    gap: 20,
+    gap: 12,
   },
   button: {
     width: "100%",

@@ -85,8 +85,7 @@ export default function InpectionReportComponent() {
   return (
     <View style={styles.container}>
       <View style={styles.cardHeader}>
-        <Text style={styles.cardHeaderTitleText}>Relatório</Text>
-        <Text style={styles.cardHeaderSubstitleText}>
+        <Text style={styles.cardHeaderTitleText}>
           Defeitos Marcados por {dislayReportModeDescription(reportMode)}
         </Text>
       </View>
@@ -142,13 +141,13 @@ const styles = StyleSheet.create({
   },
   cardHeader: {
     color: "white",
-    padding: 12,
+    padding: 14,
     backgroundColor: "#717171",
     justifyContent: "center",
     alignItems: "center",
   },
   cardHeaderTitleText: {
-    fontSize: 24,
+    fontSize: 20,
     color: "white",
     textAlign: "center",
   },

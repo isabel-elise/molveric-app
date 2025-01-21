@@ -1,11 +1,11 @@
 import { Stack } from "expo-router";
 
-export default function ReportLayout() {
+export default function DefectTypeInfoLayout() {
   return (
     <Stack
       screenOptions={{
         headerShown: true,
-        title: "Relatório da inspeção",
+        title: "Tipos de Defeitos",
       }}
     ></Stack>
   );
