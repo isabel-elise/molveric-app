@@ -1,20 +1,74 @@
 import CustomButton from "@/components/CustomButton";
-import { Link, router } from "expo-router";
+import { router } from "expo-router";
 import {
   Button,
-  Image,
   ImageBackground,
+  Modal,
+  Pressable,
   SafeAreaView,
+  StyleSheet,
   View,
+  Text,
 } from "react-native";
+import defects from "@/data/defects.json";
+import { useContext, useState } from "react";
+import { InspectionContext } from "./_layout";
 
 export default function Index() {
+  const [modalVisible, setModalVisible] = useState(false);
+
+  const inspectionContext = useContext(InspectionContext);
+
   return (
     <SafeAreaView
       style={{
         flex: 1,
       }}
     >
+      <Modal
+        animationType="slide"
+        transparent={true}
+        visible={modalVisible}
+        onRequestClose={() => {
+          setModalVisible(!modalVisible);
+        }}
+      >
+        <View style={styles.centeredView}>
+          <View style={styles.modalView}>
+            <Text style={styles.modalText}>
+              Tem certeza de que deseja apagar os dados da inspeção em andamento
+              e iniciar uma nova inspeção?
+            </Text>
+
+            <View
+              style={{
+                width: "100%",
+                flexDirection: "row",
+                justifyContent: "space-between",
+                marginTop: 16,
+              }}
+            >
+              <Button
+                title="Não"
+                color="#858585"
+                onPress={() => {
+                  setModalVisible(false);
+                }}
+              />
+
+              <Button
+                title="Sim"
+                color="#96C33F"
+                onPress={() => {
+                  inspectionContext.clearInspectionData();
+                  setModalVisible(false);
+                }}
+              />
+            </View>
+          </View>
+        </View>
+      </Modal>
+
       <ImageBackground
         source={require("@/assets/images/Fundo_menu.png")}
         resizeMode="cover"
@@ -29,24 +83,38 @@ export default function Index() {
         <View style={{ height: 180 }} />
 
         <CustomButton
-          title="Nova Inspeção"
+          title="Inspeção Guiada"
           size="regular"
-          shade="light"
-          onClick={() => router.navigate("/loose_inspection")}
+          shade="dark"
+          onClick={() => {
+            inspectionContext.updateInspectionState("IN_PROGRESS");
+            router.navigate("/guided_inspection");
+          }}
+          disabled={inspectionContext.inspectionState === "NONE"}
         />
 
         <CustomButton
           title="Inspeção Livre"
           size="regular"
           shade="medium"
-          onClick={() => router.navigate("/loose_inspection")}
+          onClick={() => {
+            inspectionContext.updateInspectionState("IN_PROGRESS");
+            router.navigate("/loose_inspection");
+          }}
+          disabled={inspectionContext.inspectionState === "NONE"}
         />
 
         <CustomButton
-          title="Inspeção Guiada"
+          title="Nova Inspeção"
           size="regular"
-          shade="dark"
-          onClick={() => router.navigate("/guided_inspection")}
+          shade="light"
+          onClick={() => {
+            if (inspectionContext.inspectionState !== "NONE") {
+              setModalVisible(true);
+            }
+            inspectionContext.updateInspectionState("NOT_INITIATED");
+          }}
+          disabled={inspectionContext.inspectionState === "NOT_INITIATED"}
         />
 
         <View style={{ height: 10 }} />
@@ -62,3 +130,22 @@ export default function Index() {
     </SafeAreaView>
   );
 }
+
+const styles = StyleSheet.create({
+  modalText: {
+    fontSize: 16,
+  },
+  centeredView: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  modalView: {
+    margin: 32,
+    backgroundColor: "white",
+    borderRadius: 8,
+    padding: 24,
+    alignItems: "center",
+    elevation: 5,
+  },
+});

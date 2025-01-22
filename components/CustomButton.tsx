@@ -5,6 +5,7 @@ interface CustomButtonProps {
   size: string;
   shade: string;
   type?: string;
+  disabled?: boolean;
   onClick: () => void;
 }
 
@@ -43,6 +44,7 @@ export default function CustomButton({
   size,
   shade,
   type,
+  disabled = false,
   onClick,
 }: CustomButtonProps) {
   return (
@@ -53,9 +55,11 @@ export default function CustomButton({
         getShadeStyle(shade),
         getTypeStyle(type),
       ]}
-      onPress={onClick}
+      onPress={disabled ? () => {} : onClick}
     >
-      <Text>{title}</Text>
+      <Text style={disabled ? { color: "rgba(0, 0, 0, 0.50)" } : {}}>
+        {title}
+      </Text>
     </Pressable>
   );
 }

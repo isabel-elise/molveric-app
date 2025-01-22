@@ -6,7 +6,6 @@ import {
 import { Defect } from "@/types";
 import { Stack } from "expo-router";
 import { createContext, useEffect, useState } from "react";
-import { ImageBackground } from "react-native";
 const defects: Defect[] = require("@/data/defects.json");
 
 interface InspectionContextProps {
@@ -15,6 +14,9 @@ interface InspectionContextProps {
   updateDefectsListBatch: (defects: Defect[]) => void;
   inspectedCards: string[];
   updateInspectedCards: (cardID: string) => void;
+  inspectionState: string;
+  updateInspectionState: (state: string) => void;
+  clearInspectionData: () => void;
 }
 
 initializeStorage(myLocalStorage);
@@ -25,11 +27,15 @@ export const InspectionContext = createContext<InspectionContextProps>({
   updateDefectsListBatch: (_: Defect[]) => {},
   inspectedCards: [],
   updateInspectedCards: (_: string) => {},
+  inspectionState: "",
+  updateInspectionState: (_: string) => {},
+  clearInspectionData: () => {},
 });
 
 export default function RootLayout() {
   const [defectsList, setDefectsList] = useState<Defect[]>([]);
   const [inspectedCards, setInspectedCards] = useState<string[]>([]);
+  const [inspectionState, setInspectionState] = useState<string>("");
 
   useEffect(() => {
     storageService.getItem<Defect[]>("defects").then((storedDefectsList) => {
@@ -50,6 +56,14 @@ export default function RootLayout() {
           setInspectedCards(inspectedCards);
         }
       });
+    storageService.getItem("inspectionState").then((storedInspectionState) => {
+      if (storedInspectionState) {
+        setInspectionState(storedInspectionState);
+      } else {
+        storageService.setItem("inspectionState", "NONE");
+        setInspectionState("NONE");
+      }
+    });
   }, []);
 
   function updateDefectsList(defect: Defect) {
@@ -82,8 +96,13 @@ export default function RootLayout() {
     let newInpectedCards = [...inspectedCards, card];
     storageService.setItem("inspectedCards", newInpectedCards);
     setInspectedCards(newInpectedCards);
-    console.log(card);
-    console.log(newInpectedCards);
+  }
+
+  function clearInspectionData() {
+    storageService.removeItem("defects");
+    storageService.removeItem("inspectedCards");
+    setDefectsList(defects);
+    setInspectedCards([]);
   }
 
   return (
@@ -94,6 +113,9 @@ export default function RootLayout() {
         updateDefectsListBatch: updateDefectsListBatch,
         inspectedCards: inspectedCards,
         updateInspectedCards: updateInspectedCards,
+        inspectionState: inspectionState,
+        updateInspectionState: setInspectionState,
+        clearInspectionData: clearInspectionData,
       }}
     >
       <Stack
