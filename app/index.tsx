@@ -10,7 +10,6 @@ import {
   View,
   Text,
 } from "react-native";
-import defects from "@/data/defects.json";
 import { useContext, useState } from "react";
 import { InspectionContext } from "./_layout";
 
@@ -61,6 +60,7 @@ export default function Index() {
                 color="#96C33F"
                 onPress={() => {
                   inspectionContext.clearInspectionData();
+                  inspectionContext.updateInspectionState("NOT_INITIATED");
                   setModalVisible(false);
                 }}
               />

@@ -4,6 +4,7 @@ import { StyleSheet, View, Text, Pressable, Modal } from "react-native";
 import elements from "@/data/elements.json";
 import { getCardElement } from "@/methods";
 import { useState } from "react";
+import Entypo from "@expo/vector-icons/Entypo";
 
 interface InspectionReportDefectComponentProps {
   defect: Defect;
@@ -47,15 +48,19 @@ export default function InspectionReportDefectComponent({
         <Text style={styles.descriptionText}>{defect.description}</Text>
       </View>
       <View style={styles.infoSection}>
-        <Text style={styles.infoText}>{defect.type}</Text>
-        <Text style={[styles.infoText, { color: element.color }]}>{card}</Text>
+        <View style={{ flexDirection: "row", gap: 7 }}>
+          <Text style={styles.infoText}>{defect.type}</Text>
+          <Text style={[styles.infoText, { color: element.color }]}>
+            {card}
+          </Text>
+        </View>
         <Pressable
           style={styles.infoButton}
           onPress={() => {
             setDefectLocationModalVisible(true);
           }}
         >
-          <Text style={styles.infoButtonText}>...</Text>
+          <Entypo name="location" size={18} color="#858585" />
         </Pressable>
       </View>
     </View>
@@ -83,10 +88,11 @@ const styles = StyleSheet.create({
     textAlign: "justify",
   },
   infoSection: {
+    marginTop: 2,
     display: "flex",
     flexDirection: "row",
-    justifyContent: "flex-end",
-    alignItems: "flex-end",
+    justifyContent: "space-between",
+    alignItems: "baseline",
     gap: 7,
   },
   infoText: {
@@ -94,10 +100,11 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
   },
   infoButton: {
-    width: 34,
-    height: 20,
+    aspectRatio: "1 / 1",
+    flexDirection: "row",
+    padding: 6,
     borderRadius: 4,
-    backgroundColor: "#DEDEDE",
+    backgroundColor: "#EFEFEF",
   },
   infoButtonText: {
     color: "#FFF",

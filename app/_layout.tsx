@@ -59,6 +59,7 @@ export default function RootLayout() {
     storageService.getItem("inspectionState").then((storedInspectionState) => {
       if (storedInspectionState) {
         setInspectionState(storedInspectionState);
+        console.log("Armazenado: " + storedInspectionState);
       } else {
         storageService.setItem("inspectionState", "NONE");
         setInspectionState("NONE");
@@ -98,6 +99,12 @@ export default function RootLayout() {
     setInspectedCards(newInpectedCards);
   }
 
+  function updateInspectionState(state: string) {
+    let newState = state;
+    storageService.setItem("inspectionState", newState);
+    setInspectionState(newState);
+  }
+
   function clearInspectionData() {
     storageService.removeItem("defects");
     storageService.removeItem("inspectedCards");
@@ -114,7 +121,7 @@ export default function RootLayout() {
         inspectedCards: inspectedCards,
         updateInspectedCards: updateInspectedCards,
         inspectionState: inspectionState,
-        updateInspectionState: setInspectionState,
+        updateInspectionState: updateInspectionState,
         clearInspectionData: clearInspectionData,
       }}
     >
