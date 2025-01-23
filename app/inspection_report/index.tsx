@@ -1,7 +1,39 @@
 import InspectionReportComponent from "@/components/InspectionReportComponent";
-import { StyleSheet, View } from "react-native";
+import { Platform, StyleSheet, View } from "react-native";
 import CustomButton from "@/components/CustomButton";
 import { router } from "expo-router";
+import { shareAsync } from "expo-sharing";
+import * as Print from "expo-print";
+
+function setPrint() {
+  const closePrint = () => {
+    document.body.removeChild(this);
+  };
+  this.contentWindow.onbeforeunload = closePrint;
+  this.contentWindow.onafterprint = closePrint;
+  setTimeout(() => {
+    this.contentWindow.print();
+  }, 5000);
+}
+
+async function printToFile() {
+  // On iOS/android prints the given html. On web prints the HTML from the current page.
+  try {
+    if (Platform.OS === "web") {
+      const hideFrame = document.createElement("iframe");
+      hideFrame.onload = setPrint;
+      hideFrame.style.display = "none"; // hide iframe
+      hideFrame.src = "/html";
+      document.body.appendChild(hideFrame);
+    } else {
+      const { uri } = await Print.printToFileAsync({ html });
+      console.log("File has been saved to:", uri);
+      await shareAsync(uri, { UTI: ".pdf", mimeType: "application/pdf" });
+    }
+  } catch (e) {
+    console.log("Erro: " + e);
+  }
+}
 
 export default function Index() {
   return (
@@ -17,7 +49,9 @@ export default function Index() {
         title="Exportar relatório"
         size="long"
         shade="medium"
-        onClick={() => {}}
+        onClick={() => {
+          printToFile();
+        }}
       />
       <CustomButton
         title="Retornar ao menu"
