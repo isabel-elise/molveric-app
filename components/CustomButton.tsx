@@ -57,7 +57,9 @@ export default function CustomButton({
       ]}
       onPress={disabled ? () => {} : onClick}
     >
-      <Text style={disabled ? { color: "rgba(0, 0, 0, 0.50)" } : {}}>
+      <Text
+        style={[styles.title, disabled ? { color: "rgba(0, 0, 0, 0.50)" } : {}]}
+      >
         {title}
       </Text>
     </Pressable>
@@ -91,5 +93,8 @@ const styles = StyleSheet.create({
   },
   darkShade: {
     backgroundColor: "#DFDFDF",
+  },
+  title: {
+    fontSize: 16,
   },
 });

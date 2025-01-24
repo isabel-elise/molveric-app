@@ -45,6 +45,7 @@ export default function Index() {
                 flexDirection: "row",
                 justifyContent: "space-between",
                 marginTop: 16,
+                paddingHorizontal: 16,
               }}
             >
               <Button

@@ -1,4 +1,5 @@
 import { myLocalStorage } from "@/services/storage/localStorage";
+import { mmkvStorage } from "@/services/storage/mmkvStorage";
 import {
   initializeStorage,
   storageService,
@@ -6,6 +7,7 @@ import {
 import { Defect } from "@/types";
 import { Stack } from "expo-router";
 import { createContext, useEffect, useState } from "react";
+import { Platform } from "react-native";
 const defects: Defect[] = require("@/data/defects.json");
 
 interface InspectionContextProps {
@@ -14,12 +16,18 @@ interface InspectionContextProps {
   updateDefectsListBatch: (defects: Defect[]) => void;
   inspectedCards: string[];
   updateInspectedCards: (cardID: string) => void;
+  inspectionIndex: number;
+  updateInspectionIndex: (index: number) => void;
   inspectionState: string;
   updateInspectionState: (state: string) => void;
   clearInspectionData: () => void;
 }
 
-initializeStorage(myLocalStorage);
+if (Platform.OS === "web") {
+  initializeStorage(myLocalStorage);
+} else {
+  initializeStorage(mmkvStorage);
+}
 
 export const InspectionContext = createContext<InspectionContextProps>({
   defectsList: [],
@@ -27,6 +35,8 @@ export const InspectionContext = createContext<InspectionContextProps>({
   updateDefectsListBatch: (_: Defect[]) => {},
   inspectedCards: [],
   updateInspectedCards: (_: string) => {},
+  inspectionIndex: 0,
+  updateInspectionIndex: (_: number) => {},
   inspectionState: "",
   updateInspectionState: (_: string) => {},
   clearInspectionData: () => {},
@@ -35,6 +45,7 @@ export const InspectionContext = createContext<InspectionContextProps>({
 export default function RootLayout() {
   const [defectsList, setDefectsList] = useState<Defect[]>([]);
   const [inspectedCards, setInspectedCards] = useState<string[]>([]);
+  const [inspectionIndex, setInspectionIndex] = useState(0);
   const [inspectionState, setInspectionState] = useState<string>("");
 
   useEffect(() => {
@@ -56,10 +67,19 @@ export default function RootLayout() {
           setInspectedCards(inspectedCards);
         }
       });
+    storageService
+      .getItem<number>("inspectionIndex")
+      .then((storedInspectionIndex) => {
+        if (storedInspectionIndex) {
+          setInspectionIndex(storedInspectionIndex);
+        } else {
+          storageService.setItem("inspectionIndex", inspectionIndex);
+          setInspectionIndex(inspectionIndex);
+        }
+      });
     storageService.getItem("inspectionState").then((storedInspectionState) => {
       if (storedInspectionState) {
         setInspectionState(storedInspectionState);
-        console.log("Armazenado: " + storedInspectionState);
       } else {
         storageService.setItem("inspectionState", "NONE");
         setInspectionState("NONE");
@@ -99,10 +119,15 @@ export default function RootLayout() {
     setInspectedCards(newInpectedCards);
   }
 
+  function updateInspectionIndex(increment: number) {
+    let newIndex = inspectionIndex + increment;
+    storageService.setItem("inspectionIndex", newIndex);
+    setInspectionIndex(newIndex);
+  }
+
   function updateInspectionState(state: string) {
-    let newState = state;
-    storageService.setItem("inspectionState", newState);
-    setInspectionState(newState);
+    storageService.setItem("inspectionState", state);
+    setInspectionState(state);
   }
 
   function clearInspectionData() {
@@ -120,6 +145,8 @@ export default function RootLayout() {
         updateDefectsListBatch: updateDefectsListBatch,
         inspectedCards: inspectedCards,
         updateInspectedCards: updateInspectedCards,
+        inspectionIndex: inspectionIndex,
+        updateInspectionIndex: updateInspectionIndex,
         inspectionState: inspectionState,
         updateInspectionState: updateInspectionState,
         clearInspectionData: clearInspectionData,

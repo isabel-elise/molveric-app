@@ -103,7 +103,11 @@ export default function CardComponent({
         </Text>
       </View>
 
-      <View style={styles.figureSection}>
+      <View
+        style={{
+          height: ["FTR-1", "FTR-2", "FTR-3"].indexOf(card) !== -1 ? 240 : 200,
+        }}
+      >
         <Image
           source={getCardData(card).figure}
           style={{
@@ -146,7 +150,7 @@ export default function CardComponent({
                 }}
               />
             )}
-            style={{ maxHeight: 200 }}
+            style={{ flexGrow: 0 }}
           />
         </View>
       ) : (
@@ -166,19 +170,20 @@ export default function CardComponent({
             flex: 1,
             justifyContent: "center",
           }}
-          style={{ maxWidth: 300, flexGrow: 0 }}
+          ItemSeparatorComponent={() => <View style={{ width: 2 }} />}
+          style={{ maxWidth: 280, flexGrow: 0 }}
         />
         <View
           style={{
-            width: 42,
-            height: 42,
+            width: 46,
+            height: 46,
             backgroundColor: element.color,
             borderRadius: "50%",
             justifyContent: "center",
             alignItems: "center",
           }}
         >
-          <Text style={{ color: "white", fontWeight: "bold" }}>
+          <Text style={{ color: "white", fontWeight: "bold", fontSize: 14 }}>
             {getCardData(card).points}
           </Text>
         </View>
@@ -214,6 +219,7 @@ const styles = StyleSheet.create({
   },
   descriptionSection: {
     marginTop: 12,
+    marginBottom: 4,
     paddingHorizontal: 12,
     justifyContent: "center",
     alignItems: "center",
@@ -242,18 +248,19 @@ const styles = StyleSheet.create({
     fontSize: 20,
   },
   figureSection: {
-    height: 200,
+    height: 180,
   },
   defectsSection: {
+    flex: 1,
     paddingHorizontal: 13,
     paddingVertical: 3,
   },
   defectTypesSection: {
-    flex: 1,
     flexDirection: "row",
     justifyContent: "center",
     alignContent: "center",
     alignItems: "center",
+    marginBottom: 8,
     gap: 8,
   },
   cardBottom: {

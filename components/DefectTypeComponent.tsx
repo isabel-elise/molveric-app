@@ -22,8 +22,6 @@ export default function DefectTypeComponent({
   return (
     <View
       style={{
-        width: 75,
-        height: 85,
         justifyContent: "center",
         alignContent: "center",
         alignItems: "center",
@@ -113,7 +111,10 @@ export default function DefectTypeComponent({
 
       <Text
         style={[
-          { fontSize: info ? 12 : 11, marginTop: 5 },
+          {
+            fontSize: info ? 12 : 11,
+            marginTop: info ? 5 : 0,
+          },
           defectsList.some((defect) => defect && defect.marked) && {
             fontWeight: "bold",
           },

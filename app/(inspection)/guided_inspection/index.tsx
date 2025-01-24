@@ -4,7 +4,7 @@ import { Image, Pressable, StyleSheet, View } from "react-native";
 import { InspectionContext } from "../../_layout";
 import { getCardDefects } from "@/methods";
 import { ProgressBar } from "@/components/ProgressBar";
-import { router } from "expo-router";
+import { router, useLocalSearchParams } from "expo-router";
 
 const recomendedOrder = [
   "CN-1",
@@ -28,44 +28,43 @@ const recomendedOrder = [
 ];
 
 export default function Index() {
-  const [currentIndex, setCurrentIndex] = useState(0);
-  const defectsContext = useContext(InspectionContext);
+  const inspectionContext = useContext(InspectionContext);
 
   return (
     <View style={styles.container}>
       <CardComponent
-        card={recomendedOrder[currentIndex]}
+        card={recomendedOrder[inspectionContext.inspectionIndex]}
         defects={getCardDefects(
-          defectsContext.defectsList,
-          recomendedOrder[currentIndex]
+          inspectionContext.defectsList,
+          recomendedOrder[inspectionContext.inspectionIndex]
         )}
-        handleDefectMarking={defectsContext.updateDefectsList}
+        handleDefectMarking={inspectionContext.updateDefectsList}
       />
 
       <Pressable
         style={styles.rightArrow}
         onPress={() =>
-          currentIndex !== recomendedOrder.length - 1
-            ? setCurrentIndex(currentIndex + 1)
+          inspectionContext.inspectionIndex !== recomendedOrder.length - 1
+            ? inspectionContext.updateInspectionIndex(1)
             : router.navigate("/inspection_report")
         }
       >
         <Image source={require("@/assets/images/Arrow.png")} />
       </Pressable>
 
-      {currentIndex > 0 ? (
+      {inspectionContext.inspectionIndex > 0 ? (
         <Pressable
           style={styles.leftArrow}
-          onPress={() =>
-            currentIndex !== recomendedOrder.length - 1
-              ? setCurrentIndex(currentIndex - 1)
-              : null
-          }
+          onPress={() => inspectionContext.updateInspectionIndex(-1)}
         >
           <Image source={require("@/assets/images/Arrow.png")} />
         </Pressable>
       ) : null}
-      <ProgressBar progress={(currentIndex * 100) / recomendedOrder.length} />
+      <ProgressBar
+        progress={
+          (inspectionContext.inspectionIndex * 100) / recomendedOrder.length
+        }
+      />
     </View>
   );
 }

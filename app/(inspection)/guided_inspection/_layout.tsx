@@ -7,8 +7,6 @@ export default function GuidedInspectionLayout() {
         headerShown: true,
         title: "Inspeção Guiada",
       }}
-    >
-      <Stack.Screen name="[card]" />
-    </Stack>
+    ></Stack>
   );
 }

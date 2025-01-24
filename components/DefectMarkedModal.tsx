@@ -51,6 +51,7 @@ export default function DefectMarkedModal({
               borderColor: "lightgrey",
               borderRadius: 8,
             }}
+            inputMode="text"
             multiline={true}
             textAlignVertical="top"
             placeholder="Digite aqui."
@@ -86,6 +87,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   modalView: {
+    width: "90%",
     margin: 18,
     backgroundColor: "white",
     borderRadius: 8,
