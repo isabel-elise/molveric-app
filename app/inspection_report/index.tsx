@@ -16,9 +16,17 @@ import { useContext, useState } from "react";
 import { InspectionContext } from "../_layout";
 
 const BY_CARD_ELEMENT = "byCardElement";
-const BY_DEFECT_TYPE = "byDefectType";
 
-function generateReportHTML(defects: Defect[], reportMode: string) {
+const print = (htmlContent: string) => {
+  const pW = window.open("", "", "height=500, width=500");
+  if (pW) {
+    pW.document.write(htmlContent);
+    pW.document.close();
+    pW.print();
+  }
+};
+
+export function generateReportHTML(defects: Defect[], reportMode: string) {
   console.log(reportMode);
   const markedDefects = defects.filter((defect) => defect.marked);
   const html = `
@@ -178,27 +186,10 @@ function formatDefectInHtml(defect: Defect) {
   `;
 }
 
-function setPrint() {
-  const closePrint = () => {
-    document.body.removeChild(this);
-  };
-  this.contentWindow.onbeforeunload = closePrint;
-  this.contentWindow.onafterprint = closePrint;
-  setTimeout(() => {
-    this.contentWindow.print();
-  }, 5000);
-}
-
 async function printToFile(html: string) {
-  // On iOS/android prints the given html. On web prints the HTML from the current page.
   try {
     if (Platform.OS === "web") {
-      console.log(html);
-      const hideFrame = document.createElement("iframe");
-      hideFrame.onload = setPrint;
-      hideFrame.style.display = "none"; // hide iframe
-      hideFrame.src = "/html";
-      document.body.appendChild(hideFrame);
+      print(html);
     } else {
       const { uri } = await Print.printToFileAsync({ html });
       console.log("File has been saved to:", uri);
