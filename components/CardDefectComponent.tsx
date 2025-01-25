@@ -1,4 +1,4 @@
-import { Text, Pressable, StyleSheet } from "react-native";
+import { Text, Pressable, StyleSheet, Platform } from "react-native";
 import CheckBox from "./CheckBox";
 import { Defect } from "@/types";
 
@@ -29,13 +29,13 @@ export default function CardDefectComponent({
 
 const styles = StyleSheet.create({
   container: {
-    width: "100%",
     flexDirection: "row",
-    paddingHorizontal: 10,
+    marginHorizontal: 10,
     paddingVertical: 8,
     gap: 7,
   },
   text: {
+    flex: 1,
     fontSize: 16,
     textAlign: "justify",
   },

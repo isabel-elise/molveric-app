@@ -201,8 +201,9 @@ export default function CardComponent({
 const styles = StyleSheet.create({
   cardContainer: {
     flex: 1,
+    width: "100%",
     backgroundColor: "white",
-    borderWidth: 5,
+    borderWidth: 4,
     borderRadius: 8,
   },
   cardHeader: {
@@ -233,7 +234,7 @@ const styles = StyleSheet.create({
   infoIcon: {
     position: "absolute",
     top: "20%",
-    left: "90%",
+    left: "85%",
     width: 28,
     height: 28,
     borderRadius: "50%",

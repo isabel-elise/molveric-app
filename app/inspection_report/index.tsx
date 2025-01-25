@@ -27,10 +27,8 @@ const print = (htmlContent: string) => {
 };
 
 export function generateReportHTML(defects: Defect[], reportMode: string) {
-  console.log(reportMode);
   const markedDefects = defects.filter((defect) => defect.marked);
   const html = `
-  <html lang="en">
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
