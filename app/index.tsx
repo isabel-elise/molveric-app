@@ -4,7 +4,6 @@ import {
   Button,
   ImageBackground,
   Modal,
-  Pressable,
   SafeAreaView,
   StyleSheet,
   View,

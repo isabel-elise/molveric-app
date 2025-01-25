@@ -1,10 +1,10 @@
 import CardComponent from "@/components/CardComponent";
-import { useContext, useState } from "react";
+import { useContext } from "react";
 import { Image, Pressable, StyleSheet, View } from "react-native";
 import { InspectionContext } from "../../_layout";
 import { getCardDefects } from "@/methods";
 import { ProgressBar } from "@/components/ProgressBar";
-import { router, useLocalSearchParams } from "expo-router";
+import { router } from "expo-router";
 
 const recomendedOrder = [
   "CN-1",

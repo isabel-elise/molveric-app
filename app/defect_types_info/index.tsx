@@ -1,11 +1,5 @@
 import DefectTypeComponent from "@/components/DefectTypeComponent";
-import {
-  ImageBackground,
-  SafeAreaView,
-  StyleSheet,
-  Text,
-  View,
-} from "react-native";
+import { ImageBackground, StyleSheet, Text, View } from "react-native";
 
 export default function Index() {
   return (

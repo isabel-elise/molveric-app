@@ -1,14 +1,6 @@
 import { Defect } from "@/types";
 import { useState } from "react";
-import {
-  Button,
-  Modal,
-  Pressable,
-  TextInput,
-  View,
-  Text,
-  StyleSheet,
-} from "react-native";
+import { Button, Modal, TextInput, View, Text, StyleSheet } from "react-native";
 
 interface Props {
   modalVisible: boolean;

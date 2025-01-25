@@ -8,7 +8,7 @@ import { Defect } from "@/types";
 import { Stack } from "expo-router";
 import { createContext, useEffect, useState } from "react";
 import { Platform } from "react-native";
-const defects: Defect[] = require("@/data/defects.json");
+import defects from "@/data/defects.json";
 
 interface InspectionContextProps {
   defectsList: Defect[];

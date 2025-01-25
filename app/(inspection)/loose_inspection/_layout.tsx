@@ -1,5 +1,5 @@
 import { Defect } from "@/types";
-import { router, Stack } from "expo-router";
+import { Stack } from "expo-router";
 import { createContext, useContext, useEffect, useState } from "react";
 import { InspectionContext } from "../../_layout";
 
