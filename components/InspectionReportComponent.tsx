@@ -25,7 +25,7 @@ const BY_DEFECT_TYPE = "byDefectType";
 
 const cardElements = elements.map((element) => element.name);
 
-function assembleReportByCardElement(
+export function assembleReportByCardElement(
   markedDefects: Defect[]
 ): secionListProps[] {
   return cardElements.map((cardElement) => ({
@@ -37,7 +37,7 @@ function assembleReportByCardElement(
   }));
 }
 
-function assembleReportByDefectType(
+export function assembleReportByDefectType(
   markedDefects: Defect[]
 ): secionListProps[] {
   return defectTypes.map((defectType) => ({
@@ -46,14 +46,14 @@ function assembleReportByDefectType(
   }));
 }
 
-function computeTotalScore(markedDefects: Defect[]) {
+export function computeTotalScore(markedDefects: Defect[]) {
   return markedDefects.reduce((totalScore, currentDefect) => {
     let currentScore = getCardData(currentDefect.id.split("_")[0]).points;
     return totalScore + currentScore;
   }, 0);
 }
 
-function dislayReportModeDescription(reportMode: string) {
+export function dislayReportModeDescription(reportMode: string) {
   if (reportMode === BY_CARD_ELEMENT) {
     return "Carta";
   }
@@ -63,12 +63,19 @@ function dislayReportModeDescription(reportMode: string) {
   throw "Tipo de relatório inválido!";
 }
 
-export default function InpectionReportComponent() {
+interface InpectionReportComponentProps {
+  reportMode: string;
+  setReportMode: (_: string) => void;
+}
+
+export default function InpectionReportComponent({
+  reportMode,
+  setReportMode,
+}: InpectionReportComponentProps) {
   const inspectionContext = useContext(InspectionContext);
   const markedDefects = inspectionContext.defectsList.filter(
     (defect) => defect.marked
   );
-  const [reportMode, setReportMode] = useState<string>(BY_CARD_ELEMENT);
   const [reportList, setReportList] = useState<secionListProps[]>([]);
 
   const totalScore = computeTotalScore(markedDefects);

@@ -1,29 +1,182 @@
-import InspectionReportComponent from "@/components/InspectionReportComponent";
+import InspectionReportComponent, {
+  assembleReportByCardElement,
+  assembleReportByDefectType,
+  computeTotalScore,
+  dislayReportModeDescription,
+} from "@/components/InspectionReportComponent";
 import { Platform, StyleSheet, View } from "react-native";
 import CustomButton from "@/components/CustomButton";
 import { router } from "expo-router";
 import { shareAsync } from "expo-sharing";
 import * as Print from "expo-print";
+import { Defect } from "@/types";
+import { getCardElement } from "@/methods";
+import elements from "@/data/elements.json";
+import { useContext, useState } from "react";
+import { InspectionContext } from "../_layout";
 
-const html = `
+const BY_CARD_ELEMENT = "byCardElement";
+const BY_DEFECT_TYPE = "byDefectType";
+
+function generateReportHTML(defects: Defect[], reportMode: string) {
+  console.log(reportMode);
+  const markedDefects = defects.filter((defect) => defect.marked);
+  const html = `
   <html lang="en">
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Pdf Content</title>
+        <title>Relatório da Inspeção por ${
+          reportMode === BY_CARD_ELEMENT ? "Elemento" : "Tipo de Defeito"
+        }</title>
         <style>
-            body {
-                font-size: 16px;
-                color: rgb(255, 196, 0);
-            }            h1 {
-                text-align: center;
-            }
+          body
+          {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            gap: 10px;
+          }
+          h1
+          {
+            width: 100%
+            text-align: center;
+            margin: 10px 8px 6px 0;
+          }
+          h2
+          {
+            margin: 8px 6px 4px 0;
+          }
+          h3
+          {
+            margin: 4px 2px 1px 0;
+          }
+          h4
+          {
+            margin-top: 2px;
+          }
+          section
+          {
+            display: flex;
+            flex-direction: column;
+            width: 98%;
+            padding: 8px 0 8px 8px; 
+            border: 1px solid;
+            border-radius: 8px;
+          }
         </style>
     </head>
     <body>
-        <h1>Hello, Unica Exames!</h1>
+        <h1>Relatório da Inspeção</h1>
+        <h4>Defeitos marcados por ${dislayReportModeDescription(
+          reportMode
+        )}</h4>
+        <h2>Pontuação total: ${computeTotalScore(markedDefects)}</h2>
+
+        ${(reportMode === BY_CARD_ELEMENT
+          ? assembleReportByCardElement(markedDefects)
+          : assembleReportByDefectType(markedDefects)
+        ).reduce(
+          (finalString, currentSection) =>
+            finalString +
+            `
+            <section>
+              <h3>${currentSection.title}</h3>
+              ${currentSection.defects.reduce(
+                (finalString, currentDefect) =>
+                  finalString + formatDefectInHtml(currentDefect),
+                ``
+              )}
+            </section>
+            `,
+          ``
+        )}
     </body>
     </html>`;
+
+  return html;
+}
+
+function formatDefectInHtml(defect: Defect) {
+  const card = defect.id.split("_")[0];
+
+  const containerStyle = `
+    display: inline-flex;
+    padding: 10px; 
+    ustify-content: center;
+    align-items: center;
+    gap: 10px;
+  `;
+
+  const contentStyle = `
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+  `;
+
+  const stripStyle = `
+    display: flex;
+    height: 100%;
+    width: 4px;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+    align-self: stretch;
+    background: ${getCardElement(elements, card).color};
+  `;
+
+  const defectFeatures = `
+    display: flex;
+    margin-left: 4px;
+    margin-top: 12px;
+    margin-bottom: 6px;
+    align-items: flex-start;
+    gap: 10px;
+    align-self: stretch;
+  `;
+
+  const cardText = `
+    font-size: 12px;
+    font-weight: bold;
+    color: ${getCardElement(elements, card).color};
+  `;
+
+  const typeText = `
+    font-size: 12px;
+    font-weight: bold;
+    color: #707070;
+  `;
+
+  const boldText = `
+    font-size: 12px;
+    font-weight: bold;
+  `;
+
+  const plainText = `
+    font-size: 12px;
+    align-self: stretch;
+  `;
+
+  return `
+    <div style="${containerStyle}">
+      <div style="${stripStyle}">
+      </div style="${contentStyle}">
+        <div>
+        <div style="${defectFeatures}">
+          <div style="${cardText}">${card}</div>
+          <div style="${typeText}">${defect.type}</div>
+        </div>
+        <div style="${plainText}">${defect.description}</div>
+
+        <div style="${defectFeatures}">
+          <div style="${boldText}">Localização  / Explicação do defeito</div>
+        </div>
+        <div style="${plainText}">${defect.location}</div>
+      </div>
+    </div>
+  `;
+}
 
 function setPrint() {
   const closePrint = () => {
@@ -36,10 +189,11 @@ function setPrint() {
   }, 5000);
 }
 
-async function printToFile() {
+async function printToFile(html: string) {
   // On iOS/android prints the given html. On web prints the HTML from the current page.
   try {
     if (Platform.OS === "web") {
+      console.log(html);
       const hideFrame = document.createElement("iframe");
       hideFrame.onload = setPrint;
       hideFrame.style.display = "none"; // hide iframe
@@ -56,9 +210,14 @@ async function printToFile() {
 }
 
 export default function Index() {
+  const inspectionContext = useContext(InspectionContext);
+  const [reportMode, setReportMode] = useState<string>(BY_CARD_ELEMENT);
   return (
     <View style={styles.container}>
-      <InspectionReportComponent />
+      <InspectionReportComponent
+        reportMode={reportMode}
+        setReportMode={setReportMode}
+      />
       <CustomButton
         title="Retornar à inspeção"
         size="long"
@@ -70,7 +229,9 @@ export default function Index() {
         size="long"
         shade="medium"
         onClick={() => {
-          printToFile();
+          printToFile(
+            generateReportHTML(inspectionContext.defectsList, reportMode)
+          );
         }}
       />
       <CustomButton
