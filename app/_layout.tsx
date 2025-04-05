@@ -145,7 +145,6 @@ export default function RootLayout() {
     setInspectedCards([]);
   }
 
-  const screenHeight = Dimensions.get("window").height * 1.1;
   const innerComponent = (
     <Stack
       screenOptions={{
@@ -180,8 +179,8 @@ export default function RootLayout() {
         >
           <View
             style={{
-              height: screenHeight,
-              width: screenHeight / 2.220873786,
+              height: Dimensions.get("window").height * 1.1,
+              width: (Dimensions.get("window").height * 1.1) / 2.220873786,
             }}
           >
             {innerComponent}
