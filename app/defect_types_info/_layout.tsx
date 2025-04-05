@@ -6,6 +6,7 @@ export default function DefectTypeInfoLayout() {
       screenOptions={{
         headerShown: true,
         title: "Tipos de Defeitos",
+        headerBackImageSource: require("@/assets/images/Arrow_back.png"),
       }}
     ></Stack>
   );

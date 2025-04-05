@@ -43,6 +43,7 @@ export default function LooseInspectionLayout() {
         screenOptions={{
           headerShown: true,
           title: "Inspeção Livre",
+          headerBackImageSource: require("@/assets/images/Arrow_back.png"),
         }}
       >
         <Stack.Screen name="[card]" />

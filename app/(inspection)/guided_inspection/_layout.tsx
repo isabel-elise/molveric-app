@@ -6,6 +6,7 @@ export default function GuidedInspectionLayout() {
       screenOptions={{
         headerShown: true,
         title: "Inspeção Guiada",
+        headerBackImageSource: require("@/assets/images/Arrow_back.png"),
       }}
     ></Stack>
   );

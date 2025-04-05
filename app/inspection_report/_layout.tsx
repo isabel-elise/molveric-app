@@ -6,6 +6,7 @@ export default function ReportLayout() {
       screenOptions={{
         headerShown: true,
         title: "Relatório da inspeção",
+        headerBackImageSource: require("@/assets/images/Arrow_back.png"),
       }}
     ></Stack>
   );
