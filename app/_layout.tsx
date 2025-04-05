@@ -7,8 +7,10 @@ import {
 import { Defect } from "@/types";
 import { Stack } from "expo-router";
 import { createContext, useEffect, useState } from "react";
-import { Platform } from "react-native";
+import { Dimensions, Platform, View } from "react-native";
 import defects from "@/data/defects.json";
+import { transform } from "@babel/core";
+import { SafeAreaView } from "react-native-safe-area-context";
 
 interface InspectionContextProps {
   defectsList: Defect[];
@@ -125,6 +127,11 @@ export default function RootLayout() {
     setInspectionIndex(newIndex);
   }
 
+  function clearInspectionIndex() {
+    storageService.setItem("inspectionIndex", 0);
+    setInspectionIndex(0);
+  }
+
   function updateInspectionState(state: string) {
     storageService.setItem("inspectionState", state);
     setInspectionState(state);
@@ -133,9 +140,19 @@ export default function RootLayout() {
   function clearInspectionData() {
     storageService.removeItem("defects");
     storageService.removeItem("inspectedCards");
+    clearInspectionIndex();
     setDefectsList(defects);
     setInspectedCards([]);
   }
+
+  const screenHeight = Dimensions.get("window").height * 1.1;
+  const innerComponent = (
+    <Stack
+      screenOptions={{
+        headerShown: false,
+      }}
+    />
+  );
 
   return (
     <InspectionContext.Provider
@@ -152,11 +169,27 @@ export default function RootLayout() {
         clearInspectionData: clearInspectionData,
       }}
     >
-      <Stack
-        screenOptions={{
-          headerShown: false,
-        }}
-      />
+      {Platform.OS === "web" && Dimensions.get("window").width > 500 ? (
+        <SafeAreaView
+          style={{
+            flex: 1,
+            justifyContent: "center",
+            alignItems: "center",
+            transform: [{ scale: 0.9 }],
+          }}
+        >
+          <View
+            style={{
+              height: screenHeight,
+              width: screenHeight / 2.220873786,
+            }}
+          >
+            {innerComponent}
+          </View>
+        </SafeAreaView>
+      ) : (
+        innerComponent
+      )}
     </InspectionContext.Provider>
   );
 }

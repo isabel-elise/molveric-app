@@ -1,6 +1,15 @@
 import { Defect } from "@/types";
 import { useState } from "react";
-import { Button, Modal, TextInput, View, Text, StyleSheet } from "react-native";
+import {
+  Button,
+  Modal,
+  TextInput,
+  View,
+  Text,
+  StyleSheet,
+  Platform,
+  Dimensions,
+} from "react-native";
 
 interface Props {
   modalVisible: boolean;
@@ -79,7 +88,14 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   modalView: {
-    width: "90%",
+    width:
+      Platform.OS === "web" && Dimensions.get("window").width > 500
+        ? Dimensions.get("window").height / 2.1
+        : "90%",
+    transform:
+      Platform.OS === "web" && Dimensions.get("window").width > 500
+        ? [{ scale: 0.9 }]
+        : [],
     margin: 18,
     backgroundColor: "white",
     borderRadius: 8,

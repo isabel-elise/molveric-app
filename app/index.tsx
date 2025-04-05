@@ -8,14 +8,20 @@ import {
   StyleSheet,
   View,
   Text,
+  Platform,
+  Dimensions,
 } from "react-native";
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { InspectionContext } from "./_layout";
 
 export default function Index() {
   const [modalVisible, setModalVisible] = useState(false);
 
   const inspectionContext = useContext(InspectionContext);
+
+  useEffect(() => {
+    console.log(Dimensions.get("window").width);
+  }, []);
 
   return (
     <SafeAreaView
@@ -141,6 +147,14 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   modalView: {
+    width:
+      Platform.OS === "web" && Dimensions.get("window").width > 500
+        ? Dimensions.get("window").height / 1.7
+        : "100%",
+    transform:
+      Platform.OS === "web" && Dimensions.get("window").width > 500
+        ? [{ scale: 0.7 }]
+        : [],
     margin: 32,
     backgroundColor: "white",
     borderRadius: 8,

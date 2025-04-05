@@ -1,7 +1,16 @@
 import MiniCardComponent from "@/components/MiniCardComponent";
 import { ProgressBar } from "@/components/ProgressBar";
 import { useContext, useState } from "react";
-import { Button, FlatList, Modal, StyleSheet, View, Text } from "react-native";
+import {
+  Button,
+  FlatList,
+  Modal,
+  StyleSheet,
+  View,
+  Text,
+  Platform,
+  Dimensions,
+} from "react-native";
 import { InspectionContext } from "../../_layout";
 import { router } from "expo-router";
 import CustomButton from "@/components/CustomButton";
@@ -131,6 +140,14 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   modalView: {
+    width:
+      Platform.OS === "web" && Dimensions.get("window").width > 500
+        ? Dimensions.get("window").height / 2.1
+        : "90%",
+    transform:
+      Platform.OS === "web" && Dimensions.get("window").width > 500
+        ? [{ scale: 0.9 }]
+        : [],
     margin: 32,
     backgroundColor: "white",
     borderRadius: 8,

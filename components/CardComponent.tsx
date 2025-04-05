@@ -7,6 +7,8 @@ import {
   Pressable,
   Modal,
   ActivityIndicator,
+  Platform,
+  Dimensions,
 } from "react-native";
 import { useState } from "react";
 
@@ -171,7 +173,7 @@ export default function CardComponent({
             justifyContent: "center",
           }}
           ItemSeparatorComponent={() => <View style={{ width: 2 }} />}
-          style={{ maxWidth: 280, flexGrow: 0 }}
+          style={{ maxWidth: "100%", flexGrow: 0 }}
         />
         <View
           style={{
@@ -233,8 +235,8 @@ const styles = StyleSheet.create({
   },
   infoIcon: {
     position: "absolute",
-    top: "20%",
-    left: "85%",
+    top: "21%",
+    left: "86%",
     width: 28,
     height: 28,
     borderRadius: "50%",
@@ -275,6 +277,14 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   modalView: {
+    width:
+      Platform.OS === "web" && Dimensions.get("window").width > 500
+        ? Dimensions.get("window").height / 2.1
+        : "90%",
+    transform:
+      Platform.OS === "web" && Dimensions.get("window").width > 500
+        ? [{ scale: 0.9 }]
+        : [],
     margin: 18,
     backgroundColor: "white",
     borderRadius: 8,

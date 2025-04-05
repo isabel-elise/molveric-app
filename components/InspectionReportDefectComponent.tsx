@@ -1,5 +1,13 @@
 import { Defect } from "@/types";
-import { StyleSheet, View, Text, Pressable, Modal } from "react-native";
+import {
+  StyleSheet,
+  View,
+  Text,
+  Pressable,
+  Modal,
+  Platform,
+  Dimensions,
+} from "react-native";
 
 import elements from "@/data/elements.json";
 import { getCardElement } from "@/methods";
@@ -117,6 +125,8 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   modalView: {
+    width:
+      Platform.OS === "web" ? Dimensions.get("window").height / 2.4 : "100%",
     margin: 18,
     backgroundColor: "#F4F4F4",
     borderRadius: 8,

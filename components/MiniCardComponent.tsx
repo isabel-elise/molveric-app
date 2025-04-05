@@ -78,7 +78,7 @@ export default function MiniCardComponent({ card }: Props) {
 
 const styles = StyleSheet.create({
   cardContainer: {
-    width: 170,
+    width: 165,
     height: 320,
     backgroundColor: "white",
     borderWidth: 3,
