@@ -63,12 +63,21 @@ export default function InspectionReportDefectComponent({
           </Text>
         </View>
         <Pressable
-          style={styles.infoButton}
+          style={[
+            styles.infoButton,
+            Platform.OS !== "web" ? { aspectRatio: "1 / 1" } : {},
+          ]}
           onPress={() => {
             setDefectLocationModalVisible(true);
           }}
         >
-          <Entypo name="location" size={18} color="#858585" />
+          {Platform.OS === "web" ? (
+            <Text style={[styles.infoText, { color: "#858585" }]}>
+              Localização
+            </Text>
+          ) : (
+            <Entypo name="location" size={18} color="#858585" />
+          )}
         </Pressable>
       </View>
     </View>
@@ -108,7 +117,6 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
   },
   infoButton: {
-    aspectRatio: "1 / 1",
     flexDirection: "row",
     padding: 6,
     borderRadius: 4,
