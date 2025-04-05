@@ -1,6 +1,9 @@
 # MoLVERIC App
 
-An app intended to provide a pratical and easy way to apply the MolVERIC technique for the inspection of MoLIC diagrams.
+A tool designed to support application of the MoLVERIC technique for MoLIC diagram inspection.
+
+![Imagem de Capa](https://github.com/user-attachments/assets/18bb6490-44f9-4c80-bdd6-67f857011c81)
+
 
 ## Get started
 
