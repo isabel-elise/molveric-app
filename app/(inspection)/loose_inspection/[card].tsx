@@ -39,7 +39,7 @@ export default function CardInspection() {
           if (inspectionContext.inspectedCards.indexOf(card) == -1) {
             inspectionContext.updateInspectedCards(card);
           }
-          router.navigate("/loose_inspection");
+          router.dismissTo("/loose_inspection");
         }}
       />
       <ProgressBar

@@ -7,7 +7,7 @@ import {
 import { Defect } from "@/types";
 import { Stack } from "expo-router";
 import { createContext, useEffect, useState } from "react";
-import { Dimensions, Platform, View } from "react-native";
+import { Dimensions, Platform, useWindowDimensions, View } from "react-native";
 import defects from "@/data/defects.json";
 import { transform } from "@babel/core";
 import { SafeAreaView } from "react-native-safe-area-context";
@@ -153,6 +153,8 @@ export default function RootLayout() {
     />
   );
 
+  const { height, width } = useWindowDimensions();
+
   return (
     <InspectionContext.Provider
       value={{
@@ -168,7 +170,7 @@ export default function RootLayout() {
         clearInspectionData: clearInspectionData,
       }}
     >
-      {Platform.OS === "web" && Dimensions.get("window").width > 500 ? (
+      {Platform.OS === "web" && width > 500 ? (
         <SafeAreaView
           style={{
             flex: 1,
@@ -179,8 +181,8 @@ export default function RootLayout() {
         >
           <View
             style={{
-              height: Dimensions.get("window").height * 1.1,
-              width: (Dimensions.get("window").height * 1.1) / 2.220873786,
+              height: 912,
+              width: 912 / 2.220873786,
             }}
           >
             {innerComponent}
