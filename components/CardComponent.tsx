@@ -9,6 +9,7 @@ import {
   ActivityIndicator,
   Platform,
   Dimensions,
+  useWindowDimensions,
 } from "react-native";
 import { useState } from "react";
 
@@ -21,6 +22,8 @@ import DefectMarkedModal from "./DefectMarkedModal";
 import elements from "@/data/elements.json";
 import { getCardElement } from "@/methods";
 import React from "react";
+
+const { height, width } = useWindowDimensions();
 
 interface Props {
   card: string;
@@ -209,13 +212,15 @@ const styles = StyleSheet.create({
     borderRadius: 8,
   },
   cardHeader: {
-    height: 60,
+    height:
+      Platform.OS === "web" && Dimensions.get("window").width > 500 ? 60 : 45,
     color: "white",
     justifyContent: "center",
     alignItems: "center",
   },
   cardHeaderText: {
-    fontSize: 24,
+    fontSize:
+      Platform.OS === "web" && Dimensions.get("window").width > 500 ? 24 : 20,
     color: "white",
     textAlign: "center",
     padding: 12,
@@ -267,7 +272,8 @@ const styles = StyleSheet.create({
     gap: 8,
   },
   cardBottom: {
-    height: 60,
+    height:
+      Platform.OS === "web" && Dimensions.get("window").width > 500 ? 60 : 45,
     justifyContent: "center",
     alignItems: "center",
   },
