@@ -149,7 +149,7 @@ const styles = StyleSheet.create({
   modalView: {
     width:
       Platform.OS === "web" && Dimensions.get("window").width > 500
-        ? Dimensions.get("window").height / 2.1
+        ? 400
         : "100%",
     transform:
       Platform.OS === "web" && Dimensions.get("window").width > 500

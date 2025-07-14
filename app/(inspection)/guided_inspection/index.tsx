@@ -13,6 +13,7 @@ const recomendedOrder = [
   "FTR-2",
   "FTR-3",
   "FTR-4",
+  "FTR-5",
   "PS-1",
   "PS-2",
   "PS-3",
