@@ -189,23 +189,7 @@ export default function RootLayout() {
           </View>
         </SafeAreaView>
       ) : (
-        <SafeAreaView
-          style={{
-            flex: 1,
-            justifyContent: "center",
-            alignItems: "center",
-            transform: [{ scale: 0.72 }],
-          }}
-        >
-          <View
-            style={{
-              height: 912,
-              width: 912 / 2.220873786,
-            }}
-          >
-            {innerComponent}
-          </View>
-        </SafeAreaView>
+        innerComponent
       )}
     </InspectionContext.Provider>
   );
