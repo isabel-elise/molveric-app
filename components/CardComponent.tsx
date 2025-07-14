@@ -9,7 +9,6 @@ import {
   ActivityIndicator,
   Platform,
   Dimensions,
-  useWindowDimensions,
 } from "react-native";
 import { useState } from "react";
 
@@ -22,8 +21,6 @@ import DefectMarkedModal from "./DefectMarkedModal";
 import elements from "@/data/elements.json";
 import { getCardElement } from "@/methods";
 import React from "react";
-
-const { height, width } = useWindowDimensions();
 
 interface Props {
   card: string;
