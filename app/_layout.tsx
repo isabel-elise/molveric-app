@@ -7,9 +7,8 @@ import {
 import { Defect } from "@/types";
 import { Stack } from "expo-router";
 import { createContext, useEffect, useState } from "react";
-import { Dimensions, Platform, useWindowDimensions, View } from "react-native";
+import { Platform, useWindowDimensions, View } from "react-native";
 import defects from "@/data/defects.json";
-import { transform } from "@babel/core";
 import { SafeAreaView } from "react-native-safe-area-context";
 
 interface InspectionContextProps {
@@ -81,7 +80,7 @@ export default function RootLayout() {
       });
     storageService.getItem("inspectionState").then((storedInspectionState) => {
       if (storedInspectionState) {
-        setInspectionState(storedInspectionState);
+        setInspectionState(JSON.stringify(storedInspectionState));
       } else {
         storageService.setItem("inspectionState", "NONE");
         setInspectionState("NONE");
@@ -153,7 +152,7 @@ export default function RootLayout() {
     />
   );
 
-  const { height, width } = useWindowDimensions();
+  const { width } = useWindowDimensions();
 
   return (
     <InspectionContext.Provider

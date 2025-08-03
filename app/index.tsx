@@ -14,13 +14,15 @@ import {
 import { useContext, useEffect, useState } from "react";
 import { InspectionContext } from "./_layout";
 
+const windowWidth = Dimensions.get("window").width;
+
 export default function Index() {
   const [modalVisible, setModalVisible] = useState(false);
 
   const inspectionContext = useContext(InspectionContext);
 
   useEffect(() => {
-    console.log(Dimensions.get("window").width);
+    console.log("WindowWidth: " + Dimensions.get("window").width);
   }, []);
 
   return (
@@ -147,14 +149,9 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   modalView: {
-    width:
-      Platform.OS === "web" && Dimensions.get("window").width > 500
-        ? 400
-        : "100%",
+    width: Platform.OS === "web" && windowWidth > 500 ? 400 : "100%",
     transform:
-      Platform.OS === "web" && Dimensions.get("window").width > 500
-        ? [{ scale: 0.9 }]
-        : [],
+      Platform.OS === "web" && windowWidth > 500 ? [{ scale: 0.9 }] : [],
     margin: 32,
     backgroundColor: "white",
     borderRadius: 8,

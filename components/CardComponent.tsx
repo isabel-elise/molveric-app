@@ -22,6 +22,9 @@ import elements from "@/data/elements.json";
 import { getCardElement } from "@/methods";
 import React from "react";
 
+const windowWidth = Dimensions.get("window").width;
+const windowHeight = Dimensions.get("window").height;
+
 interface Props {
   card: string;
   defects: Defect[];
@@ -95,7 +98,14 @@ export default function CardComponent({
         handleDefectMarking={handleDefectMarking}
       />
 
-      <View style={[styles.cardHeader, { backgroundColor: element.color }]}>
+      <View
+        style={[
+          styles.cardHeader,
+          {
+            backgroundColor: element.color,
+          },
+        ]}
+      >
         <Text style={styles.cardHeaderText}>{element.name}</Text>
       </View>
 
@@ -192,9 +202,7 @@ export default function CardComponent({
       </View>
 
       <View style={[styles.cardBottom, { backgroundColor: element.color }]}>
-        <Text style={{ color: "white", fontWeight: "bold", fontSize: 18 }}>
-          {card}
-        </Text>
+        <Text style={styles.cardBottomText}>{card}</Text>
       </View>
     </View>
   );
@@ -209,15 +217,13 @@ const styles = StyleSheet.create({
     borderRadius: 8,
   },
   cardHeader: {
-    height:
-      Platform.OS === "web" && Dimensions.get("window").width > 500 ? 60 : 45,
+    height: Platform.OS === "web" && windowWidth > 500 ? 60 : 40,
     color: "white",
     justifyContent: "center",
     alignItems: "center",
   },
   cardHeaderText: {
-    fontSize:
-      Platform.OS === "web" && Dimensions.get("window").width > 500 ? 24 : 20,
+    fontSize: Platform.OS === "web" && windowWidth > 500 ? 24 : 16,
     color: "white",
     textAlign: "center",
     padding: 12,
@@ -269,10 +275,14 @@ const styles = StyleSheet.create({
     gap: 8,
   },
   cardBottom: {
-    height:
-      Platform.OS === "web" && Dimensions.get("window").width > 500 ? 60 : 45,
+    height: Platform.OS === "web" && windowWidth > 500 ? 60 : 40,
     justifyContent: "center",
     alignItems: "center",
+  },
+  cardBottomText: {
+    color: "white",
+    fontWeight: "bold",
+    fontSize: Platform.OS === "web" && windowWidth > 500 ? 18 : 16,
   },
   centeredView: {
     flex: 1,
@@ -281,13 +291,9 @@ const styles = StyleSheet.create({
   },
   modalView: {
     width:
-      Platform.OS === "web" && Dimensions.get("window").width > 500
-        ? Dimensions.get("window").height / 2.1
-        : "90%",
+      Platform.OS === "web" && windowWidth > 500 ? windowHeight / 2.1 : "90%",
     transform:
-      Platform.OS === "web" && Dimensions.get("window").width > 500
-        ? [{ scale: 0.9 }]
-        : [],
+      Platform.OS === "web" && windowWidth > 500 ? [{ scale: 0.9 }] : [],
     margin: 18,
     backgroundColor: "white",
     borderRadius: 8,
