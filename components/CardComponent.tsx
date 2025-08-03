@@ -217,13 +217,13 @@ const styles = StyleSheet.create({
     borderRadius: 8,
   },
   cardHeader: {
-    height: Platform.OS === "web" && windowWidth > 500 ? 60 : 40,
+    height: Platform.OS === "web" && windowWidth > 500 ? 60 : 45,
     color: "white",
     justifyContent: "center",
     alignItems: "center",
   },
   cardHeaderText: {
-    fontSize: Platform.OS === "web" && windowWidth > 500 ? 24 : 16,
+    fontSize: Platform.OS === "web" && windowWidth > 500 ? 24 : 18,
     color: "white",
     textAlign: "center",
     padding: 12,
@@ -275,7 +275,7 @@ const styles = StyleSheet.create({
     gap: 8,
   },
   cardBottom: {
-    height: Platform.OS === "web" && windowWidth > 500 ? 60 : 40,
+    height: Platform.OS === "web" && windowWidth > 500 ? 60 : 45,
     justifyContent: "center",
     alignItems: "center",
   },
