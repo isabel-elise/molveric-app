@@ -1,10 +1,4 @@
-import {
-  Text,
-  Pressable,
-  StyleSheet,
-  Platform,
-  Dimensions,
-} from "react-native";
+import { Text, Pressable, StyleSheet, Dimensions } from "react-native";
 import CheckBox from "./CheckBox";
 import { Defect } from "@/types";
 
