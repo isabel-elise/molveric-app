@@ -2,7 +2,7 @@ import { Text, Pressable, StyleSheet, Dimensions } from "react-native";
 import CheckBox from "./CheckBox";
 import { Defect } from "@/types";
 
-const windowWidth = Dimensions.get("window").width;
+//const windowWidth = Dimensions.get("window").width;
 
 interface Props {
   defect: Defect;
