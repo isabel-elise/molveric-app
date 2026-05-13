@@ -9,6 +9,7 @@ import {
   ActivityIndicator,
   Platform,
   Dimensions,
+  ScrollView,
 } from "react-native";
 import { useState } from "react";
 
@@ -109,6 +110,8 @@ export default function CardComponent({
         <Text style={styles.cardHeaderText}>{element.name}</Text>
       </View>
 
+      <ScrollView>
+
       <View style={styles.descriptionSection}>
         <Text style={[styles.descriptionText, styles.cardBodyText]}>
           {element.description}
@@ -200,6 +203,8 @@ export default function CardComponent({
           </Text>
         </View>
       </View>
+
+      </ScrollView>
 
       <View style={[styles.cardBottom, { backgroundColor: element.color }]}>
         <Text style={styles.cardBottomText}>{card}</Text>
