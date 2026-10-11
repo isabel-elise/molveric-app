@@ -8,11 +8,12 @@ import { getCardDefects } from "@/methods";
 import { ProgressBar } from "@/components/ProgressBar";
 import { LooseInspectionDefectsContext } from "./_layout";
 import CustomButton from "@/components/CustomButton";
+import React from "react";
 
 export default function CardInspection() {
   const { card }: { card: string } = useLocalSearchParams();
   const looseInspectionDefectsContext = useContext(
-    LooseInspectionDefectsContext
+    LooseInspectionDefectsContext,
   );
   const inspectionContext = useContext(InspectionContext);
 
@@ -26,7 +27,7 @@ export default function CardInspection() {
       <CardComponent
         card={card}
         defects={getCardDefects(looseInspectionDefectsContext.list, card)}
-        handleDefectMarking={looseInspectionDefectsContext.update}
+        handleDefectMarking={inspectionContext.updateDefectsList}
       />
       <CustomButton
         title="Marcar carta como inspecionada"
@@ -34,7 +35,7 @@ export default function CardInspection() {
         shade="medium"
         onClick={() => {
           inspectionContext.updateDefectsListBatch(
-            getCardDefects(looseInspectionDefectsContext.list, card)
+            getCardDefects(looseInspectionDefectsContext.list, card),
           );
           if (inspectionContext.inspectedCards.indexOf(card) == -1) {
             inspectionContext.updateInspectedCards(card);
